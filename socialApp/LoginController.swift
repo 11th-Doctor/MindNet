@@ -25,8 +25,8 @@ class LoginController: UIViewController {
         return label
     }()
     
-    let emailTextField: UITextField = {
-        let textField = UITextField()
+    let emailTextField: IndentedTextField = {
+        let textField = IndentedTextField(padding: 24)
         textField.placeholder = "電子郵件"
         textField.layer.cornerRadius = 25
         textField.keyboardType = .emailAddress
@@ -34,8 +34,8 @@ class LoginController: UIViewController {
         return textField
     }()
     
-    let passwordTextField: UITextField = {
-        let textField = UITextField()
+    let passwordTextField: IndentedTextField = {
+        let textField = IndentedTextField(padding: 24)
         textField.placeholder = "密碼"
         textField.layer.cornerRadius = 25
         textField.keyboardType = .emailAddress
@@ -47,6 +47,7 @@ class LoginController: UIViewController {
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("登入", for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 18)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .black
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
@@ -87,7 +88,10 @@ class LoginController: UIViewController {
     }
 
     @objc fileprivate func handleLogin() {
-        print("login...")
+        let email = emailTextField.text ?? ""
+        let password = passwordTextField.text ?? ""
+        
+        print("email: \(email), password: \(password)")
     }
     
     @objc fileprivate func goToRegister() {

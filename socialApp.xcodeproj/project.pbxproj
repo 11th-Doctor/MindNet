@@ -10,6 +10,8 @@
 		899F22040B1F7EFE4AE117D2 /* Pods_socialApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B92001CF9E7B5E79C073D2F2 /* Pods_socialApp.framework */; };
 		D86016A96EEC8E6A33345D61 /* Pods_socialAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F53BF204304739769A05EDB /* Pods_socialAppTests.framework */; };
 		E8AEF0EEAA9BA3EEECE0B267 /* Pods_socialApp_socialAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87B25A7CF81447D8551EE4BF /* Pods_socialApp_socialAppUITests.framework */; };
+		FB94CDA52695DAE6006618E4 /* IndentedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94CDA42695DAE6006618E4 /* IndentedTextField.swift */; };
+		FB94CDA72695DF65006618E4 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94CDA62695DF65006618E4 /* MainTabBarController.swift */; };
 		FBE5AA802691EE9100496967 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AA7F2691EE9100496967 /* AppDelegate.swift */; };
 		FBE5AA822691EE9100496967 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AA812691EE9100496967 /* SceneDelegate.swift */; };
 		FBE5AA842691EE9100496967 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AA832691EE9100496967 /* LoginController.swift */; };
@@ -47,10 +49,12 @@
 		87B25A7CF81447D8551EE4BF /* Pods_socialApp_socialAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_socialApp_socialAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B92001CF9E7B5E79C073D2F2 /* Pods_socialApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_socialApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E477D64577C47D3F88E8B8 /* Pods-socialApp-socialAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-socialApp-socialAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-socialApp-socialAppUITests/Pods-socialApp-socialAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FB94CDA42695DAE6006618E4 /* IndentedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndentedTextField.swift; sourceTree = "<group>"; };
+		FB94CDA62695DF65006618E4 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		FBE5AA7C2691EE9100496967 /* socialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = socialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE5AA7F2691EE9100496967 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBE5AA812691EE9100496967 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FBE5AA832691EE9100496967 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		FBE5AA832691EE9100496967 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		FBE5AA862691EE9100496967 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FBE5AA882691EE9300496967 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FBE5AA8B2691EE9300496967 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -116,6 +120,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FB94CDA32695DAC9006618E4 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				FB94CDA42695DAE6006618E4 /* IndentedTextField.swift */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
 		FBE5AA732691EE9000496967 = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +153,7 @@
 		FBE5AA7E2691EE9100496967 /* socialApp */ = {
 			isa = PBXGroup;
 			children = (
+				FB94CDA32695DAC9006618E4 /* components */,
 				FBE5AA7F2691EE9100496967 /* AppDelegate.swift */,
 				FBE5AA812691EE9100496967 /* SceneDelegate.swift */,
 				FBE5AA832691EE9100496967 /* LoginController.swift */,
@@ -149,6 +162,7 @@
 				FBE5AA8A2691EE9300496967 /* LaunchScreen.storyboard */,
 				FBE5AA8D2691EE9300496967 /* Info.plist */,
 				FBE5AAAF2691FE0500496967 /* Extensions.swift */,
+				FB94CDA62695DF65006618E4 /* MainTabBarController.swift */,
 			);
 			path = socialApp;
 			sourceTree = "<group>";
@@ -409,7 +423,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB94CDA52695DAE6006618E4 /* IndentedTextField.swift in Sources */,
 				FBE5AA842691EE9100496967 /* LoginController.swift in Sources */,
+				FB94CDA72695DF65006618E4 /* MainTabBarController.swift in Sources */,
 				FBE5AA802691EE9100496967 /* AppDelegate.swift in Sources */,
 				FBE5AA822691EE9100496967 /* SceneDelegate.swift in Sources */,
 				FBE5AAB02691FE0500496967 /* Extensions.swift in Sources */,
