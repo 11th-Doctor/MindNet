@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class LoginController: UIViewController {
     
@@ -91,7 +92,21 @@ class LoginController: UIViewController {
         let email = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         
-        print("email: \(email), password: \(password)")
+        let hud = JGProgressHUD(style: .dark)
+        hud.show(in: view, animated: true)
+        
+        Service.shared.login(email: email, password: password) { result in
+            switch (result) {
+            case .failure(let err):
+                print("Failed to login", err.localizedDescription)
+                break
+            case.success(let data):
+                print(String.init(data: data, encoding: .utf8) ?? "")
+                break
+            }
+
+            hud.dismiss(animated: true)
+        }
     }
     
     @objc fileprivate func goToRegister() {

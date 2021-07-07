@@ -15,5 +15,12 @@ class HomeController: UIViewController {
     
     fileprivate func setupViews() {
         view.backgroundColor = .white
+        
+        navigationItem.rightBarButtonItem = .init(title: "登入", style: .done, target: self, action: #selector(handleLoginButton))
+    }
+    
+    @objc fileprivate func handleLoginButton() {
+        let loginController = LoginController()
+        present(loginController, animated: true, completion: nil)
     }
 }
