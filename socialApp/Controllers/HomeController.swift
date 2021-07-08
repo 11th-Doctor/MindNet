@@ -26,6 +26,15 @@ class HomeController: UIViewController {
     }
     
     @objc fileprivate func fetchPosts() {
-        print("Fetching posts...")
+        Service.shared.fetchPosts { result in
+            switch result {
+            case .failure(let err):
+                print("Failed to fetch posts", err.localizedDescription)
+                break
+            case .success(let data):
+                print(String(data: data, encoding: .utf8) ?? "")
+                break
+            }
+        }
     }
 }
