@@ -31,8 +31,8 @@ class HomeController: UIViewController {
             case .failure(let err):
                 print("Failed to fetch posts", err.localizedDescription)
                 break
-            case .success(let data):
-                print(String(data: data, encoding: .utf8) ?? "")
+            case .success(let posts):
+                print(posts)
                 break
             }
         }

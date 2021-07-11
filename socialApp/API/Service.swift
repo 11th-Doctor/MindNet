@@ -28,7 +28,7 @@ class Service: NSObject {
             }
     }
     
-    func fetchPosts(completion: @escaping(Result<Data, Error>) -> ()) {
+    func fetchPosts(completion: @escaping(Result<[Post], Error>) -> ()) {
         let url = "\(Service.shared.baseUrl)/post"
         AF.request(url, method: .get)
             .validate(statusCode: 200..<300)
@@ -38,7 +38,15 @@ class Service: NSObject {
                     return
                 }
                 
-                completion(.success(dataResp.data ?? Data()))
+                do {
+                    let allPosts = try JSONDecoder().decode([Post].self, from: dataResp.data ?? Data())
+                    print(allPosts)
+                    completion(.success(allPosts))
+                } catch let err {
+                    completion(.failure(err))
+                }
+                
+                
             }
     }
 }
