@@ -25,14 +25,14 @@ class HomeController: UIViewController {
         present(loginController, animated: true, completion: nil)
     }
     
-    @objc fileprivate func fetchPosts() {
+    @objc func fetchPosts() {
         Service.shared.fetchPosts { result in
             switch result {
             case .failure(let err):
                 print("Failed to fetch posts", err.localizedDescription)
                 break
             case .success(let posts):
-                print(posts)
+                print("len: \(posts.count)")
                 break
             }
         }

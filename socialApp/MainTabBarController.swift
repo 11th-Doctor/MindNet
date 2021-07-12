@@ -27,6 +27,11 @@ class MainTabBarController: UITabBarController {
         navController.tabBarItem.image = tabBarImage
         return navController
     }
+    
+    func refreshPosts() {
+        //TODO: refresh the profile
+        homeController.fetchPosts()
+    }
 
 }
 
@@ -45,10 +50,19 @@ extension MainTabBarController: UITabBarControllerDelegate {
 
 extension MainTabBarController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var selectedImage: UIImage?
         if let editedImage = info[.editedImage] {
-            print(editedImage)
+            selectedImage = editedImage as? UIImage
         } else if let image = info[.originalImage] {
-            print(image)
+            selectedImage = image as? UIImage
+        }
+        
+        if let selectedImage = selectedImage {
+            
+            picker.dismiss(animated: true) {
+                let createPostController = CreatePostController(selectedImage: selectedImage)
+                self.present(createPostController, animated: true, completion: nil)
+            }
         }
     }
     
