@@ -7,13 +7,14 @@
 
 import UIKit
 
-class HomeController: UIViewController {
+class HomeController: BaseCollectionController<PostCell, Post> {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
     
-    fileprivate func setupViews() {
+    func setupViews() {
         view.backgroundColor = .white
         
         navigationItem.rightBarButtonItem = .init(title: "登入", style: .done, target: self, action: #selector(handleLoginButton))
@@ -32,9 +33,17 @@ class HomeController: UIViewController {
                 print("Failed to fetch posts", err.localizedDescription)
                 break
             case .success(let posts):
-                print("len: \(posts.count)")
+                self.items = posts
                 break
             }
         }
+    }
+}
+
+extension HomeController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = estimatedCellHeight(for: indexPath, cellWidth: view.frame.width)
+        print("h: \(height)")
+        return CGSize(width: view.frame.width, height: height)
     }
 }

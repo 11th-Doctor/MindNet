@@ -11,6 +11,9 @@
 		D86016A96EEC8E6A33345D61 /* Pods_socialAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F53BF204304739769A05EDB /* Pods_socialAppTests.framework */; };
 		E8AEF0EEAA9BA3EEECE0B267 /* Pods_socialApp_socialAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87B25A7CF81447D8551EE4BF /* Pods_socialApp_socialAppUITests.framework */; };
 		FB67363E269B328800620975 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB67363D269B328800620975 /* Post.swift */; };
+		FB6D7CFE269DCE16006407B8 /* BaseCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D7CFD269DCE16006407B8 /* BaseCollectionController.swift */; };
+		FB6D7D01269DDF09006407B8 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D7D00269DDF09006407B8 /* PostCell.swift */; };
+		FB6D7D03269DE296006407B8 /* BaseCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D7D02269DE296006407B8 /* BaseCollectionCell.swift */; };
 		FB94CDA52695DAE6006618E4 /* IndentedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94CDA42695DAE6006618E4 /* IndentedTextField.swift */; };
 		FB94CDA72695DF65006618E4 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94CDA62695DF65006618E4 /* MainTabBarController.swift */; };
 		FB94CDAA2695E2F9006618E4 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94CDA92695E2F9006618E4 /* HomeController.swift */; };
@@ -54,6 +57,9 @@
 		B92001CF9E7B5E79C073D2F2 /* Pods_socialApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_socialApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E477D64577C47D3F88E8B8 /* Pods-socialApp-socialAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-socialApp-socialAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-socialApp-socialAppUITests/Pods-socialApp-socialAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		FB67363D269B328800620975 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		FB6D7CFD269DCE16006407B8 /* BaseCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionController.swift; sourceTree = "<group>"; };
+		FB6D7D00269DDF09006407B8 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		FB6D7D02269DE296006407B8 /* BaseCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionCell.swift; sourceTree = "<group>"; };
 		FB94CDA42695DAE6006618E4 /* IndentedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndentedTextField.swift; sourceTree = "<group>"; };
 		FB94CDA62695DF65006618E4 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		FB94CDA92695E2F9006618E4 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -136,6 +142,23 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		FB6D7CFC269DCDB5006407B8 /* BaseCollection */ = {
+			isa = PBXGroup;
+			children = (
+				FB6D7CFD269DCE16006407B8 /* BaseCollectionController.swift */,
+				FB6D7D02269DE296006407B8 /* BaseCollectionCell.swift */,
+			);
+			path = BaseCollection;
+			sourceTree = "<group>";
+		};
+		FB6D7CFF269DDEF2006407B8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FB6D7D00269DDF09006407B8 /* PostCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		FB94CDA32695DAC9006618E4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +170,7 @@
 		FB94CDA82695E2C7006618E4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FB6D7CFC269DCDB5006407B8 /* BaseCollection */,
 				FB94CDA92695E2F9006618E4 /* HomeController.swift */,
 				FBC825C8269C79AE0088927F /* CreatePostController.swift */,
 			);
@@ -186,6 +210,7 @@
 		FBE5AA7E2691EE9100496967 /* socialApp */ = {
 			isa = PBXGroup;
 			children = (
+				FB6D7CFF269DDEF2006407B8 /* Views */,
 				FB67363C269B326700620975 /* Models */,
 				FB94CDAB2695E726006618E4 /* API */,
 				FB94CDA82695E2C7006618E4 /* Controllers */,
@@ -468,7 +493,10 @@
 				FBE5AA802691EE9100496967 /* AppDelegate.swift in Sources */,
 				FB67363E269B328800620975 /* Post.swift in Sources */,
 				FBE5AA822691EE9100496967 /* SceneDelegate.swift in Sources */,
+				FB6D7CFE269DCE16006407B8 /* BaseCollectionController.swift in Sources */,
+				FB6D7D03269DE296006407B8 /* BaseCollectionCell.swift in Sources */,
 				FBE5AAB02691FE0500496967 /* Extensions.swift in Sources */,
+				FB6D7D01269DDF09006407B8 /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

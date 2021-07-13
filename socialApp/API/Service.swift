@@ -40,7 +40,6 @@ class Service: NSObject {
                 
                 do {
                     let allPosts = try JSONDecoder().decode([Post].self, from: dataResp.data ?? Data())
-                    print(allPosts)
                     completion(.success(allPosts))
                 } catch let err {
                     completion(.failure(err))
