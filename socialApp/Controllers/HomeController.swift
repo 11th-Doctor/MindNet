@@ -23,7 +23,8 @@ class HomeController: BaseCollectionController<PostCell, Post> {
     
     @objc fileprivate func handleLoginButton() {
         let loginController = LoginController()
-        present(loginController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: loginController)
+        present(navigationController, animated: true, completion: nil)
     }
     
     @objc func fetchPosts() {

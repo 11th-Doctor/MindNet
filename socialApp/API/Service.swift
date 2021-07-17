@@ -28,6 +28,20 @@ class Service: NSObject {
             }
     }
     
+    func signUp(params: [String:String], completion: @escaping(Result<Data,Error>) -> ()) {
+        let url = "\(baseUrl)/user/signup"
+        AF.request(url, method: .post, parameters: params)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                if let err = dataResp.error {
+                    completion(.failure(err))
+                    return
+                }
+                
+                completion(.success(dataResp.data ?? Data()))
+            }
+    }
+    
     func fetchPosts(completion: @escaping(Result<[Post], Error>) -> ()) {
         let url = "\(Service.shared.baseUrl)/post"
         AF.request(url, method: .get)

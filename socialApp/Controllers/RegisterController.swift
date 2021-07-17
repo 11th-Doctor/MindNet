@@ -1,14 +1,18 @@
 //
-//  ViewController.swift
+//  RegisterController.swift
 //  socialApp
 //
-//  Created by Daryl on 2021/7/4.
+//  Created by Daryl on 2021/7/17.
 //
 
 import UIKit
-import JGProgressHUD
 
-class LoginController: UIViewController {
+class RegisterController: UIViewController {
+    
+    let scrollView: UIScrollView = {
+        let sv = UIScrollView()
+        return sv
+    }()
     
     let logoImageView: UIImageView = {
         let view = UIImageView(image: #imageLiteral(resourceName: "startup"))
@@ -24,6 +28,15 @@ class LoginController: UIViewController {
         label.textAlignment = .natural
         label.numberOfLines = 0
         return label
+    }()
+    
+    let fullnameTextField: IndentedTextField = {
+        let textField = IndentedTextField(padding: 24)
+        textField.placeholder = "用戶姓名"
+        textField.layer.cornerRadius = 25
+        textField.keyboardType = .emailAddress
+        textField.backgroundColor = .white
+        return textField
     }()
     
     let emailTextField: IndentedTextField = {
@@ -45,34 +58,23 @@ class LoginController: UIViewController {
         return textField
     }()
     
-    let loginButton: UIButton = {
+    let registerButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("登入", for: .normal)
+        button.setTitle("註冊", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 18)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .black
-        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         button.layer.cornerRadius = 25
         return button
     }()
     
-    let errorLabel: UILabel = {
-        let label = UILabel()
-        label.text = "您的登入身份有誤，請再試一次"
-        label.isHidden = true
-        label.textColor = .red
-        label.font = .systemFont(ofSize: 14)
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    let goToRegisterButton: UIButton = {
+    let goToLoginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("返回註冊", for: .normal)
+        button.setTitle("返回登入", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        button.addTarget(self, action: #selector(goToRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(goToLogin), for: .touchUpInside)
         
         return button
     }()
@@ -80,7 +82,8 @@ class LoginController: UIViewController {
     var formView: UIScrollView = {
         let view = UIScrollView(frame: .zero)
         view.keyboardDismissMode = .interactive
-        //TODO: - keyboard dismissing
+        
+        //TODO: - keybpard dismissing
         return view
     }()
     
@@ -89,45 +92,49 @@ class LoginController: UIViewController {
         
         setupViews()
     }
-
-    @objc fileprivate func handleLogin() {
-        let email = emailTextField.text ?? ""
+    
+    @objc fileprivate func handleRegister() {
+        let fullname = fullnameTextField.text ?? ""
+        let emall = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         
-        let hud = JGProgressHUD(style: .dark)
-        hud.show(in: view, animated: true)
+        if fullname.isEmpty || emall.isEmpty || password.isEmpty {
+            let alertController = UIAlertController(title: "註冊失敗", message: "欄位輸入不完整，請再試一試", preferredStyle: .alert)
+            alertController.addAction(.init(title: "確定", style: .default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+            return
+        }
         
-        Service.shared.login(email: email, password: password) { result in
-            switch (result) {
+        let params = ["fullName":fullname, "email":emall, "password":password]
+
+        Service.shared.signUp(params: params) { result in
+            switch result {
             case .failure(let err):
-                print("Failed to login", err.localizedDescription)
-                self.errorLabel.isHidden = false
+                print("Failed to sign up", err)
                 break
-            case.success(_):
-                self.dismiss(animated: true, completion: nil)
+            case .success(_):
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
                 break
             }
-
-            hud.dismiss(animated: true)
         }
     }
     
-    @objc fileprivate func goToRegister() {
-        let registerController = RegisterController()
-        navigationController?.pushViewController(registerController, animated: true)
+    @objc fileprivate func goToLogin() {
+        navigationController?.popViewController(animated: true)
     }
     
     fileprivate func setupViews() {
-        
-        navigationController?.navigationBar.isHidden = true
-        
         view.backgroundColor = .init(white: 0.95, alpha: 1)
         
         view.addSubview(formView)
         
         formView.addSubview(logoImageView)
         formView.addSubview(logoLabel)
-        formView.addSubview(errorLabel)
+        formView.addSubview(emailTextField)
+        formView.addSubview(passwordTextField)
+        formView.addSubview(registerButton)
         
         formView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
@@ -142,7 +149,7 @@ class LoginController: UIViewController {
         
         logoStack.widthAnchor.constraint(equalTo: formView.widthAnchor, multiplier: 3/4).isActive = true
         
-        let fieldsStack = UIStackView(arrangedSubviews: [emailTextField,passwordTextField])
+        let fieldsStack = UIStackView(arrangedSubviews: [fullnameTextField,emailTextField,passwordTextField])
         fieldsStack.axis = .vertical
         fieldsStack.distribution = .fillEqually
         fieldsStack.spacing = 16
@@ -150,16 +157,13 @@ class LoginController: UIViewController {
         
         fieldsStack.anchor(top: logoStack.bottomAnchor, left: formView.leftAnchor, bottom: formView.bottomAnchor, right: formView.rightAnchor, paddingTop: 48, paddingLeft: 32, paddingBottom: 0, paddingRight: 32, width: 0, height: 0)
         fieldsStack.widthAnchor.constraint(equalTo: formView.widthAnchor, multiplier: 10/12).isActive = true
-        fieldsStack.heightAnchor.constraint(equalTo: fieldsStack.widthAnchor, multiplier: 1/3).isActive = true
+        fieldsStack.heightAnchor.constraint(equalTo: fieldsStack.widthAnchor, multiplier: 1/2).isActive = true
         
-        formView.addSubview(errorLabel)
-        errorLabel.anchor(top: fieldsStack.bottomAnchor, left: fieldsStack.leftAnchor, bottom: nil, right: fieldsStack.rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 25)
+        formView.addSubview(registerButton)
+        registerButton.anchor(top: fieldsStack.bottomAnchor, left: fieldsStack.leftAnchor, bottom: nil, right: fieldsStack.rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
         
-        formView.addSubview(loginButton)
-        loginButton.anchor(top: errorLabel.bottomAnchor, left: fieldsStack.leftAnchor, bottom: nil, right: fieldsStack.rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
+        formView.addSubview(goToLoginButton)
+        goToLoginButton.anchor(top: registerButton.bottomAnchor, left: fieldsStack.leftAnchor, bottom: nil, right: fieldsStack.rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
         
-        formView.addSubview(goToRegisterButton)
-        goToRegisterButton.anchor(top: loginButton.bottomAnchor, left: fieldsStack.leftAnchor, bottom: nil, right: fieldsStack.rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
     }
 }
-

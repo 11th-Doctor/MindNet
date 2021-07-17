@@ -11,7 +11,7 @@ import SDWebImage
 class PostCell: BaseCollectionCell<Post> {
     
     let profileImageView: CircularImageView = {
-        let view = CircularImageView(width: 44, image: #imageLiteral(resourceName: "startup"))
+        let view = CircularImageView(width: 44, image: nil)
         
         return view
     }()
@@ -52,6 +52,7 @@ class PostCell: BaseCollectionCell<Post> {
     
     override var item: Post! {
         didSet {
+            usernameLabel.text = item.user.fullName
             postImageView.sd_setImage(with: URL(string: item.imageUrl))
             textBodyLabel.text = item.text
         }

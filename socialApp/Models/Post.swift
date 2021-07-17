@@ -14,4 +14,5 @@ struct Post: Codable {
     let updatedAt: String
     let imageUrl: String
     let numLikes: Int
+    let user: User
 }
