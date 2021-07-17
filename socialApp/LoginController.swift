@@ -59,6 +59,7 @@ class LoginController: UIViewController {
     let errorLabel: UILabel = {
         let label = UILabel()
         label.text = "您的登入身份有誤，請再試一次"
+        label.isHidden = true
         label.textColor = .red
         label.font = .systemFont(ofSize: 14)
         label.textAlignment = .center
@@ -99,9 +100,10 @@ class LoginController: UIViewController {
             switch (result) {
             case .failure(let err):
                 print("Failed to login", err.localizedDescription)
+                self.errorLabel.isHidden = false
                 break
-            case.success(let data):
-                print(String.init(data: data, encoding: .utf8) ?? "")
+            case.success(_):
+                self.dismiss(animated: true, completion: nil)
                 break
             }
 

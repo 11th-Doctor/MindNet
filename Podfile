@@ -18,5 +18,6 @@ target 'socialApp' do
 
 pod 'Alamofire', '~> 5.4'
 pod 'JGProgressHUD'
+pod 'SDWebImage'
 
 end
