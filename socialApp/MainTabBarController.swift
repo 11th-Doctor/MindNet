@@ -10,6 +10,7 @@ import UIKit
 class MainTabBarController: UITabBarController {
     
     var homeController = HomeController()
+    var profileController = ProfileController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +18,7 @@ class MainTabBarController: UITabBarController {
         viewControllers = [
             createNavController(viewController: homeController, tabBarImage: #imageLiteral(resourceName: "home")),
             createNavController(viewController: UIViewController(), tabBarImage: #imageLiteral(resourceName: "plus")),
-            createNavController(viewController: UIViewController(), tabBarImage: #imageLiteral(resourceName: "user"))
+            createNavController(viewController: profileController, tabBarImage: #imageLiteral(resourceName: "user"))
         ]
         tabBar.tintColor = .black
     }
@@ -29,8 +30,8 @@ class MainTabBarController: UITabBarController {
     }
     
     func refreshPosts() {
-        //TODO: refresh the profile
         homeController.fetchPosts()
+        profileController.fetchPosts()
     }
 
 }

@@ -45,7 +45,6 @@ class HomeController: BaseCollectionController<PostCell, Post> {
 extension HomeController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = estimatedCellHeight(for: indexPath, cellWidth: view.frame.width)
-        print("h: \(height)")
         return CGSize(width: view.frame.width, height: height)
     }
 }
