@@ -33,6 +33,7 @@ class HomeController: BaseCollectionController<PostCell, Post> {
                 print("Failed to fetch posts", err.localizedDescription)
                 break
             case .success(let posts):
+                print(posts)
                 self.items = posts
                 break
             }

@@ -81,11 +81,9 @@ class CreatePostController: UIViewController {
             case .failure(let err):
                 print("Failed to hit server", err)
                 break
-            case .success(let data):
+            case .success(_):
                 
                 hud.dismiss(animated: true)
-                
-                print(String(data: data ?? Data(), encoding: .utf8))
                 
                 if let err = resp.error {
                     print("Failed to upload the post", err)

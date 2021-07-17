@@ -28,6 +28,7 @@
 		FBE5AA972691EE9300496967 /* socialAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AA962691EE9300496967 /* socialAppTests.swift */; };
 		FBE5AAA22691EE9400496967 /* socialAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AAA12691EE9400496967 /* socialAppUITests.swift */; };
 		FBE5AAB02691FE0500496967 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE5AAAF2691FE0500496967 /* Extensions.swift */; };
+		FBFBB34C26A09516009A4155 /* CircularImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFBB34B26A09516009A4155 /* CircularImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		FBE5AAA12691EE9400496967 /* socialAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = socialAppUITests.swift; sourceTree = "<group>"; };
 		FBE5AAA32691EE9400496967 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBE5AAAF2691FE0500496967 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		FBFBB34B26A09516009A4155 /* CircularImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImageView.swift; sourceTree = "<group>"; };
 		FC9D244C9AE597B8A540E0DA /* Pods-socialApp-socialAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-socialApp-socialAppUITests.release.xcconfig"; path = "Target Support Files/Pods-socialApp-socialAppUITests/Pods-socialApp-socialAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				FB94CDA42695DAE6006618E4 /* IndentedTextField.swift */,
+				FBFBB34B26A09516009A4155 /* CircularImageView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				FBE5AA802691EE9100496967 /* AppDelegate.swift in Sources */,
 				FB67363E269B328800620975 /* Post.swift in Sources */,
 				FBE5AA822691EE9100496967 /* SceneDelegate.swift in Sources */,
+				FBFBB34C26A09516009A4155 /* CircularImageView.swift in Sources */,
 				FB6D7CFE269DCE16006407B8 /* BaseCollectionController.swift in Sources */,
 				FB6D7D03269DE296006407B8 /* BaseCollectionCell.swift in Sources */,
 				FBE5AAB02691FE0500496967 /* Extensions.swift in Sources */,
