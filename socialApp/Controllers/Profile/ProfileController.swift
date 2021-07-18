@@ -11,6 +11,7 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "個人資料"
         fetchPosts()
     }
     
@@ -24,7 +25,6 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
                 print("Failed to fetch posts", err.localizedDescription)
                 break
             case .success(let posts):
-                print(posts)
                 self.items = posts
                 break
             }
@@ -40,6 +40,12 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 300)
+        let header = ProfileHeader()
+        let largeHeight: CGFloat = 250
+        header.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: largeHeight)
+        header.layoutIfNeeded()
+        let optimalSize = header.systemLayoutSizeFitting(.init(width: view.frame.width, height: largeHeight))
+        print("optimalSize: \(optimalSize.height)")
+        return optimalSize
     }
 }
