@@ -93,7 +93,6 @@ class ProfileHeader: UICollectionReusableView {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 14)
         label.textAlignment = .center
-        label.text = "使用者名稱"
         return label
     }()
     
@@ -107,9 +106,9 @@ class ProfileHeader: UICollectionReusableView {
         return label
     }()
     
-    var user: User! {
+    var user: User? {
         didSet {
-            
+            fullNameLabel.text = user?.fullName
         }
     }
     

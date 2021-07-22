@@ -62,4 +62,53 @@ class Service: NSObject {
                 
             }
     }
+    
+    func fetchUserProfile(completion: @escaping(Result<User, Error>) -> ()) {
+        let url = "\(Service.shared.baseUrl)/user/profile"
+        
+        AF.request(url, method: .get)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                
+                if let err = dataResp.error {
+                    completion(.failure(err))
+                    return
+                }
+                
+                do {
+                    let user = try JSONDecoder().decode(User.self, from: dataResp.data ?? Data())
+                    completion(.success(user))
+                } catch let err {
+                    completion(.failure(err))
+                }
+                
+            }
+    }
+    
+    func updateProfile(user: User, avatar: UIImage?, completion: @escaping(Result<Int,Error>) ->()) {
+        let url = "\(Service.shared.baseUrl)/user/profile"
+        
+        AF.upload(multipartFormData: { formData in
+            formData.append(Data(user.fullName.utf8), withName: "fullName")
+            
+            if let imagefile = avatar?.jpegData(compressionQuality: 0.5) {
+                formData.append(imagefile, withName: "imagefile", fileName: "", mimeType: "image/jpg")
+            }
+            
+        }, to: url)
+        .response { dataResp in
+            if let err = dataResp.error {
+                completion(.failure(err))
+                return
+            }
+            
+//            do {
+//                let user = try JSONDecoder().decode(User.self, from: dataResp.data ?? Data())
+//                completion(.success(user))
+//            } catch let err {
+//                completion(.failure(err))
+//            }
+            completion(.success(1))
+        }
+    }
 }

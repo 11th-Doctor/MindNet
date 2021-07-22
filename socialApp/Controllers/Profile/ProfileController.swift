@@ -12,13 +12,15 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "個人資料"
+        fetchUserProfile()
         fetchPosts()
     }
     
-    var header: ProfileHeader?
+    var user: User?
     
     override func setupHeader(header: ProfileHeader) {
         header.profileController = self
+        header.user = user
     }
     
     func selectProfile() {
@@ -41,8 +43,25 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
         }
     }
     
+    fileprivate func fetchUserProfile() {
+        Service.shared.fetchUserProfile { result in
+            switch result {
+            case .failure(let err):
+                print("Failed to fetch user profile", err)
+                break
+            case .success(let user):
+                self.user = user
+                break
+            }
+        }
+    }
+    
     fileprivate func uploadUserProfileImage(profileImage: UIImage) {
-        
+        if let user = user {
+            Service.shared.updateProfile(user: user, avatar: profileImage) { result in
+                print(result)
+            }
+        }
     }
 }
 
