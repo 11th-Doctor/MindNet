@@ -161,5 +161,9 @@ class LoginController: UIViewController {
         formView.addSubview(goToRegisterButton)
         goToRegisterButton.anchor(top: loginButton.bottomAnchor, left: fieldsStack.leftAnchor, bottom: nil, right: fieldsStack.rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
     }
+    
+    deinit {
+        print("No Retain cylce/Leak")
+    }
 }
 

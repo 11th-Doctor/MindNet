@@ -21,7 +21,7 @@ class BaseHeaderCollectionController<T: BaseCollectionCell<U>, U: Codable, H: UI
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: supplementaryHeaderId, for: indexPath) as! H
-            
+            setupHeader(header: header)
             return header
         }
         

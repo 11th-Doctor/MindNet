@@ -55,7 +55,15 @@ class BaseCollectionController<T: BaseCollectionCell<U>, U: Codable>: UICollecti
         return cell.systemLayoutSizeFitting(CGSize(width: cellWidth, height: largeHeight)).height
     }
     
+    override func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        view.layer.zPosition = -1
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("No Retain cylce/Leak")
     }
 }

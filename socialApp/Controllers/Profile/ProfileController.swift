@@ -15,7 +15,17 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
         fetchPosts()
     }
     
+    var header: ProfileHeader?
+    
     override func setupHeader(header: ProfileHeader) {
+        header.profileController = self
+    }
+    
+    func selectProfile() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        present(imagePickerController, animated: true, completion: nil)
     }
     
     @objc func fetchPosts() {
@@ -29,6 +39,10 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
                 break
             }
         }
+    }
+    
+    fileprivate func uploadUserProfileImage(profileImage: UIImage) {
+        
     }
 }
 
@@ -45,7 +59,22 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
         header.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: largeHeight)
         header.layoutIfNeeded()
         let optimalSize = header.systemLayoutSizeFitting(.init(width: view.frame.width, height: largeHeight))
-        print("optimalSize: \(optimalSize.height)")
         return optimalSize
+    }
+}
+
+extension ProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let image = info[.editedImage] as? UIImage {
+            dismiss(animated: true) {
+                self.uploadUserProfileImage(profileImage: image)
+            }
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }

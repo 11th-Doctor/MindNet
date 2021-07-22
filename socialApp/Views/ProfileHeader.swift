@@ -9,10 +9,12 @@ import UIKit
 
 class ProfileHeader: UICollectionReusableView {
     
-    let profileImageView: CircularImageView = {
+    lazy var profileImageView: CircularImageView = {
         let view = CircularImageView(width: 80)
         view.image = #imageLiteral(resourceName: "startup")
         view.layer.borderWidth = 1
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleEditProfile)))
         return view
     }()
     
@@ -26,7 +28,7 @@ class ProfileHeader: UICollectionReusableView {
         return button
     }()
     
-    let editProfileButton: UIButton = {
+    lazy var editProfileButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("編輯檔案", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -111,10 +113,16 @@ class ProfileHeader: UICollectionReusableView {
         }
     }
     
+    weak var profileController: ProfileController?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setupViews()
+    }
+    
+    @objc fileprivate func handleEditProfile() {
+        profileController?.selectProfile()
     }
     
     func setupViews() {
@@ -162,5 +170,9 @@ class ProfileHeader: UICollectionReusableView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("No Retain cylce/Leak for ProfileHeader")
     }
 }
