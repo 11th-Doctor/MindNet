@@ -11,4 +11,5 @@ struct User: Codable {
     let _id: String
     let fullName: String
     let emailAddress: String
+    let profileImageUrl: String
 }

@@ -79,6 +79,7 @@ class Service: NSObject {
                     let user = try JSONDecoder().decode(User.self, from: dataResp.data ?? Data())
                     completion(.success(user))
                 } catch let err {
+                    print("msg: " + String(data: dataResp.data ?? Data(), encoding: .utf8)!)
                     completion(.failure(err))
                 }
                 
@@ -101,13 +102,6 @@ class Service: NSObject {
                 completion(.failure(err))
                 return
             }
-            
-//            do {
-//                let user = try JSONDecoder().decode(User.self, from: dataResp.data ?? Data())
-//                completion(.success(user))
-//            } catch let err {
-//                completion(.failure(err))
-//            }
             completion(.success(1))
         }
     }

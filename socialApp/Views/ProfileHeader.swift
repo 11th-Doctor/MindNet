@@ -11,7 +11,7 @@ class ProfileHeader: UICollectionReusableView {
     
     lazy var profileImageView: CircularImageView = {
         let view = CircularImageView(width: 80)
-        view.image = #imageLiteral(resourceName: "startup")
+        view.image = #imageLiteral(resourceName: "user")
         view.layer.borderWidth = 1
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleEditProfile)))
@@ -109,6 +109,8 @@ class ProfileHeader: UICollectionReusableView {
     var user: User? {
         didSet {
             fullNameLabel.text = user?.fullName
+            profileImageView.sd_setImage(with: URL(string: user?.profileImageUrl ?? ""))
+            
         }
     }
     

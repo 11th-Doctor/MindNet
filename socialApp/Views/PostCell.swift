@@ -52,6 +52,7 @@ class PostCell: BaseCollectionCell<Post> {
     
     override var item: Post! {
         didSet {
+            profileImageView.sd_setImage(with: URL(string: item.user.profileImageUrl))
             usernameLabel.text = item.user.fullName
             postImageView.sd_setImage(with: URL(string: item.imageUrl))
             textBodyLabel.text = item.text

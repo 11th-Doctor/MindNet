@@ -59,7 +59,18 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
     fileprivate func uploadUserProfileImage(profileImage: UIImage) {
         if let user = user {
             Service.shared.updateProfile(user: user, avatar: profileImage) { result in
-                print(result)
+                switch result {
+                case .failure(let err):
+                    print(err)
+                    break
+                case .success(_):
+                    self.fetchUserProfile()
+                    self.fetchPosts()
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                    break
+                }
             }
         }
     }
