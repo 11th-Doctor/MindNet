@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseCollectionController<T: BaseCollectionCell<U>, U: Codable>: UICollectionViewController {
+class BaseCollectionController<T: BaseCollectionCell<U>, U: Decodable>: UICollectionViewController {
     
     private let cellId = "cellId"
     var items: [U] = [U]() {

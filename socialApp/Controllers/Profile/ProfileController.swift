@@ -13,7 +13,9 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
         super.viewDidLoad()
         navigationItem.title = "個人資料"
         fetchUserProfile()
-        fetchPosts()
+//        fetchPosts()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "fetch", style: .done, target: self, action: #selector(fetchUserProfile))
     }
     
     var user: User?
@@ -30,20 +32,7 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    @objc func fetchPosts() {
-        Service.shared.fetchPosts { result in
-            switch result {
-            case .failure(let err):
-                print("Failed to fetch posts", err.localizedDescription)
-                break
-            case .success(let posts):
-                self.items = posts
-                break
-            }
-        }
-    }
-    
-    fileprivate func fetchUserProfile() {
+    @objc func fetchUserProfile() {
         Service.shared.fetchUserProfile { result in
             switch result {
             case .failure(let err):
@@ -51,6 +40,8 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
                 break
             case .success(let user):
                 self.user = user
+                self.items = user.posts ?? [Post]()
+                self.collectionView.reloadData()
                 break
             }
         }
@@ -65,10 +56,6 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
                     break
                 case .success(_):
                     self.fetchUserProfile()
-                    self.fetchPosts()
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
                     break
                 }
             }

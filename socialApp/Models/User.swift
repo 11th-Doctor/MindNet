@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct User: Codable {
+struct User: Decodable {
     let _id: String
     let fullName: String
     let emailAddress: String
     let profileImageUrl: String
+    var posts: [Post]?
 }

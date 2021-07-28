@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseCollectionCell<T: Codable>: UICollectionViewCell {
+class BaseCollectionCell<T: Decodable>: UICollectionViewCell {
     
     var item: T!
     

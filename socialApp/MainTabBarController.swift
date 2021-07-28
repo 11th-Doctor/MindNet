@@ -31,7 +31,7 @@ class MainTabBarController: UITabBarController {
     
     func refreshPosts() {
         homeController.fetchPosts()
-        profileController.fetchPosts()
+        profileController.fetchUserProfile()
     }
 
 }
