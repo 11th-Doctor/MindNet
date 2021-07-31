@@ -10,6 +10,8 @@
 		899F22040B1F7EFE4AE117D2 /* Pods_socialApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B92001CF9E7B5E79C073D2F2 /* Pods_socialApp.framework */; };
 		D86016A96EEC8E6A33345D61 /* Pods_socialAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F53BF204304739769A05EDB /* Pods_socialAppTests.framework */; };
 		E8AEF0EEAA9BA3EEECE0B267 /* Pods_socialApp_socialAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87B25A7CF81447D8551EE4BF /* Pods_socialApp_socialAppUITests.framework */; };
+		FB4243D326B5912C00BBBCF0 /* UsersSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4243D226B5912C00BBBCF0 /* UsersSearchController.swift */; };
+		FB4243D526B591A000BBBCF0 /* UsersSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4243D426B591A000BBBCF0 /* UsersSearchCell.swift */; };
 		FB67363E269B328800620975 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB67363D269B328800620975 /* Post.swift */; };
 		FB6D7CFE269DCE16006407B8 /* BaseCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D7CFD269DCE16006407B8 /* BaseCollectionController.swift */; };
 		FB6D7D01269DDF09006407B8 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D7D00269DDF09006407B8 /* PostCell.swift */; };
@@ -62,6 +64,8 @@
 		87B25A7CF81447D8551EE4BF /* Pods_socialApp_socialAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_socialApp_socialAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B92001CF9E7B5E79C073D2F2 /* Pods_socialApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_socialApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E477D64577C47D3F88E8B8 /* Pods-socialApp-socialAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-socialApp-socialAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-socialApp-socialAppUITests/Pods-socialApp-socialAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FB4243D226B5912C00BBBCF0 /* UsersSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersSearchController.swift; sourceTree = "<group>"; };
+		FB4243D426B591A000BBBCF0 /* UsersSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersSearchCell.swift; sourceTree = "<group>"; };
 		FB67363D269B328800620975 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		FB6D7CFD269DCE16006407B8 /* BaseCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionController.swift; sourceTree = "<group>"; };
 		FB6D7D00269DDF09006407B8 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -146,6 +150,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FB4243D126B5910600BBBCF0 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				FB4243D226B5912C00BBBCF0 /* UsersSearchController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		FB67363C269B326700620975 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +182,7 @@
 			children = (
 				FB6D7D00269DDF09006407B8 /* PostCell.swift */,
 				FBBF42D926A338B900737EC7 /* ProfileHeader.swift */,
+				FB4243D426B591A000BBBCF0 /* UsersSearchCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +199,7 @@
 		FB94CDA82695E2C7006618E4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FB4243D126B5910600BBBCF0 /* Search */,
 				FBBF42D426A3293300737EC7 /* Profile */,
 				FB6D7CFC269DCDB5006407B8 /* BaseCollection */,
 				FB94CDA92695E2F9006618E4 /* HomeController.swift */,
@@ -524,6 +538,8 @@
 				FBE5AA822691EE9100496967 /* SceneDelegate.swift in Sources */,
 				FBFBB34C26A09516009A4155 /* CircularImageView.swift in Sources */,
 				FB6D7CFE269DCE16006407B8 /* BaseCollectionController.swift in Sources */,
+				FB4243D526B591A000BBBCF0 /* UsersSearchCell.swift in Sources */,
+				FB4243D326B5912C00BBBCF0 /* UsersSearchController.swift in Sources */,
 				FBBF42D326A30D6700737EC7 /* RegisterController.swift in Sources */,
 				FB6D7D03269DE296006407B8 /* BaseCollectionCell.swift in Sources */,
 				FBE5AAB02691FE0500496967 /* Extensions.swift in Sources */,

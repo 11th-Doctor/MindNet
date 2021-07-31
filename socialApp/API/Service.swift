@@ -104,4 +104,24 @@ class Service: NSObject {
             completion(.success(1))
         }
     }
+    
+    func searchForUsers(completion: @escaping(Result<[User], Error>)->()) {
+        let url = "\(Service.shared.baseUrl)/user/search"
+        
+        AF.request(url, method: .get)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                if let err = dataResp.error {
+                    completion(.failure(err))
+                    return
+                }
+                
+                do {
+                    let users = try JSONDecoder().decode([User].self, from: dataResp.data ?? Data())
+                    completion(.success(users))
+                } catch let err {
+                    completion(.failure(err))
+                }
+            }
+    }
 }

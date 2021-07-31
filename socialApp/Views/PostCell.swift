@@ -12,7 +12,7 @@ class PostCell: BaseCollectionCell<Post> {
     
     let profileImageView: CircularImageView = {
         let view = CircularImageView(width: 44, image: nil)
-        
+        view.layer.borderWidth = 0.5
         return view
     }()
     
@@ -26,16 +26,17 @@ class PostCell: BaseCollectionCell<Post> {
     
     let fromNowLabel: UILabel = {
         let label = UILabel()
-        label.text = "Posted five days ago"
+//        label.text = "Posted five days ago"
         label.textColor = .gray
         
         return label
     }()
     
     lazy var optionsButton: UIButton = {
-        let buttonn = UIButton()
-        buttonn.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
-        return buttonn
+        let button = UIButton()
+        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
+        button.setImage(#imageLiteral(resourceName: "post_options"), for: .normal)
+        return button
     }()
     
     let postImageView: UIImageView = {
@@ -47,12 +48,37 @@ class PostCell: BaseCollectionCell<Post> {
     let textBodyLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
+        
         return label
+    }()
+    
+    lazy var likeButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
+        button.setImage(#imageLiteral(resourceName: "like-outline"), for: .normal)
+        return button
+    }()
+    
+    lazy var commentButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
+        button.setImage(#imageLiteral(resourceName: "comment-bubble"), for: .normal)
+        return button
+    }()
+    
+    lazy var numLikesButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
+        button.setTitle("0 個喜歡", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15)
+        return button
     }()
     
     override var item: Post! {
         didSet {
             profileImageView.sd_setImage(with: URL(string: item.user.profileImageUrl))
+            fromNowLabel.text = item.fromNow
             usernameLabel.text = item.user.fullName
             postImageView.sd_setImage(with: URL(string: item.imageUrl))
             textBodyLabel.text = item.text
@@ -72,7 +98,7 @@ class PostCell: BaseCollectionCell<Post> {
     }
     
     @objc func showOptions() {
-        
+        print("handling options...")
     }
     
     var imageHeightAnchor: NSLayoutConstraint!
@@ -85,10 +111,16 @@ class PostCell: BaseCollectionCell<Post> {
         addSubview(usernameLabel)
         addSubview(postImageView)
         addSubview(textBodyLabel)
+        addSubview(likeButton)
+        addSubview(commentButton)
+        addSubview(numLikesButton)
         
         profileImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: usernameLabel.leftAnchor, paddingTop: 12, paddingLeft: 16, paddingBottom: 0, paddingRight: 16, width: 0, height: 0)
         
-        usernameLabel.anchor(top: profileImageView.topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 16, width: 0, height: 0)
+        optionsButton.anchor(top: nil, left: nil, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 16, width: 34, height: 34)
+        optionsButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
+        
+        usernameLabel.anchor(top: profileImageView.topAnchor, left: nil, bottom: nil, right: optionsButton.leftAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 12, width: 0, height: 0)
         
         fromNowLabel.anchor(top: nil, left: usernameLabel.leftAnchor, bottom: profileImageView.bottomAnchor, right: usernameLabel.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
@@ -97,7 +129,15 @@ class PostCell: BaseCollectionCell<Post> {
         imageHeightAnchor = postImageView.heightAnchor.constraint(equalToConstant:  0)
         imageHeightAnchor.isActive = true
 
-        textBodyLabel.anchor(top: postImageView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 16, paddingBottom: 16, paddingRight: 16, width: 0, height: 0)
+        textBodyLabel.anchor(top: postImageView.bottomAnchor, left: leftAnchor, bottom: likeButton.topAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 16, paddingBottom: 12, paddingRight: 16, width: 0, height: 0)
+        
+        likeButton.anchor(top: nil, left: textBodyLabel.leftAnchor, bottom: numLikesButton.topAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 12, paddingRight: 0, width: 34, height: 34)
+        
+        commentButton.anchor(top: nil, left: likeButton.rightAnchor, bottom: numLikesButton.topAnchor, right: nil, paddingTop: 0, paddingLeft: 12, paddingBottom: 12, paddingRight: 0, width: 34, height: 34)
+        
+        numLikesButton.anchor(top: nil, left: textBodyLabel.leftAnchor, bottom: bottomAnchor, right: commentButton.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 12, paddingRight: 0, width: 0, height: 34)
+        
+        addSeparatorView()
     }
     
     required init?(coder: NSCoder) {

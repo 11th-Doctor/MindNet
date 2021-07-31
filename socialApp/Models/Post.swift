@@ -15,4 +15,5 @@ struct Post: Decodable {
     let imageUrl: String
     let numLikes: Int
     let user: User
+    let fromNow: String
 }

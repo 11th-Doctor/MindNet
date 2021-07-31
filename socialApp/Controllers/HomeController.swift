@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class HomeController: BaseCollectionController<PostCell, Post> {
     
@@ -17,8 +18,11 @@ class HomeController: BaseCollectionController<PostCell, Post> {
     func setupViews() {
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = .init(title: "登入", style: .done, target: self, action: #selector(handleLoginButton))
-        navigationItem.leftBarButtonItem = .init(title: "fetch", style: .done, target: self, action: #selector(fetchPosts))
+        navigationItem.leftBarButtonItem = .init(title: "登入", style: .done, target: self, action: #selector(handleLoginButton))
+        navigationItem.rightBarButtonItem = .init(image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(searchUsers))
+        
+        collectionView.refreshControl = UIRefreshControl()
+        collectionView.refreshControl?.addTarget(self, action: #selector(fetchPosts), for: .valueChanged)
     }
     
     @objc fileprivate func handleLoginButton() {
@@ -27,7 +31,17 @@ class HomeController: BaseCollectionController<PostCell, Post> {
         present(navigationController, animated: true, completion: nil)
     }
     
+    @objc fileprivate func searchUsers() {
+        let usersSearchController = UsersSearchController()
+        let navigationController = UINavigationController(rootViewController: usersSearchController)
+        present(navigationController, animated: true, completion: nil)
+    }
+    
     @objc func fetchPosts() {
+        
+//        let hud = JGProgressHUD(style: .dark)
+//        hud.show(in: view)
+        
         Service.shared.fetchPosts { result in
             switch result {
             case .failure(let err):
@@ -37,6 +51,8 @@ class HomeController: BaseCollectionController<PostCell, Post> {
                 self.items = posts
                 break
             }
+            self.collectionView.refreshControl?.endRefreshing()
+//            hud.dismiss(animated: true)
         }
     }
     
