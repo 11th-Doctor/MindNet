@@ -8,6 +8,10 @@
 import UIKit
 import SDWebImage
 
+protocol PostDelegate {
+    func showOptions(postId: String)
+}
+
 class PostCell: BaseCollectionCell<Post> {
     
     let profileImageView: CircularImageView = {
@@ -54,21 +58,21 @@ class PostCell: BaseCollectionCell<Post> {
     
     lazy var likeButton: UIButton = {
         let button = UIButton()
-        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
         button.setImage(#imageLiteral(resourceName: "like-outline"), for: .normal)
         return button
     }()
     
     lazy var commentButton: UIButton = {
         let button = UIButton()
-        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
         button.setImage(#imageLiteral(resourceName: "comment-bubble"), for: .normal)
         return button
     }()
     
     lazy var numLikesButton: UIButton = {
         let button = UIButton()
-        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
         button.setTitle("0 個喜歡", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15)
@@ -98,7 +102,7 @@ class PostCell: BaseCollectionCell<Post> {
     }
     
     @objc func showOptions() {
-        print("handling options...")
+        (parentController as? PostDelegate)?.showOptions(postId: item._id)
     }
     
     var imageHeightAnchor: NSLayoutConstraint!

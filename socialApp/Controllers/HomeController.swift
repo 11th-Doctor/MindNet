@@ -39,8 +39,8 @@ class HomeController: BaseCollectionController<PostCell, Post> {
     
     @objc func fetchPosts() {
         
-//        let hud = JGProgressHUD(style: .dark)
-//        hud.show(in: view)
+        let hud = JGProgressHUD(style: .dark)
+        hud.show(in: view)
         
         Service.shared.fetchPosts { result in
             switch result {
@@ -49,10 +49,11 @@ class HomeController: BaseCollectionController<PostCell, Post> {
                 break
             case .success(let posts):
                 self.items = posts
+                self.collectionView.reloadData()
                 break
             }
             self.collectionView.refreshControl?.endRefreshing()
-//            hud.dismiss(animated: true)
+            hud.dismiss(animated: true)
         }
     }
     
@@ -66,4 +67,27 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
         let height = estimatedCellHeight(for: indexPath, cellWidth: view.frame.width)
         return CGSize(width: view.frame.width, height: height)
     }
+}
+
+extension HomeController: PostDelegate {
+    func showOptions(postId: String) {
+        let alertController = UIAlertController(title: "選單", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "刪除貼文", style: .destructive) { _ in
+            Service.shared.deletePost(postId: postId) { result in
+                switch result {
+                case .failure(let err):
+                    print(err)
+                    break
+                case .success(_):
+                    self.fetchPosts()
+                }
+            }
+        })
+        
+        alertController.addAction(.init(title: "取消", style: .cancel, handler: nil))
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
 }

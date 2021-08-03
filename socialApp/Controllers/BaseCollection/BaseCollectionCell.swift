@@ -9,6 +9,8 @@ import UIKit
 
 class BaseCollectionCell<T: Decodable>: UICollectionViewCell {
     
+    var parentController: UIViewController?
+    
     var item: T!
     
     let separatorView: UIView = {

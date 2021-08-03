@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileHeader> {
     
@@ -13,9 +14,10 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
         super.viewDidLoad()
         navigationItem.title = "個人資料"
         fetchUserProfile()
-//        fetchPosts()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "fetch", style: .done, target: self, action: #selector(fetchUserProfile))
+        collectionView.refreshControl = UIRefreshControl()
+        collectionView.refreshControl?.addTarget(self, action: #selector(fetchUserProfile), for: .valueChanged)
     }
     
     var user: User?
@@ -33,6 +35,9 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
     }
     
     @objc func fetchUserProfile() {
+        let hud = JGProgressHUD(style: .dark)
+        hud.show(in: view)
+        
         Service.shared.fetchUserProfile { result in
             switch result {
             case .failure(let err):
@@ -44,6 +49,8 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
                 self.collectionView.reloadData()
                 break
             }
+            hud.dismiss(animated: true)
+            self.collectionView.refreshControl?.endRefreshing()
         }
     }
     
@@ -61,6 +68,29 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
             }
         }
     }
+}
+
+extension ProfileController: PostDelegate {
+    func showOptions(postId: String) {
+        let alertController = UIAlertController(title: "選單", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "刪除貼文", style: .destructive) { _ in
+            Service.shared.deletePost(postId: postId) { result in
+                switch result {
+                case .failure(let err):
+                    print(err)
+                    break
+                case .success(_):
+                    self.fetchUserProfile()
+                }
+            }
+        })
+        
+        alertController.addAction(.init(title: "取消", style: .cancel, handler: nil))
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
 }
 
 extension ProfileController: UICollectionViewDelegateFlowLayout {

@@ -41,6 +41,7 @@ class BaseCollectionController<T: BaseCollectionCell<U>, U: Decodable>: UICollec
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! T
+        cell.parentController = self
         cell.item = items[indexPath.item]
         return cell
     }

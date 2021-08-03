@@ -124,4 +124,18 @@ class Service: NSObject {
                 }
             }
     }
+    
+    func deletePost(postId id: String, completion: @escaping(Result<Int, Error>) -> ()) {
+        let url = "\(Service.shared.baseUrl)/post/\(id)"
+        AF.request(url, method: .delete)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                if let err = dataResp.error {
+                    completion(.failure(err))
+                    return
+                }
+                
+                completion(.success(1))
+            }
+    }
 }
