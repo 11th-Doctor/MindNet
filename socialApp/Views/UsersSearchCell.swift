@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol UsersSearchDelegate {
+    func followUser(userId: String)
+    func unfollowUser(userId: String)
+}
+
 class UsersSearchCell: BaseCollectionCell<User> {
     
     let profileImageView: CircularImageView = {
@@ -23,27 +28,40 @@ class UsersSearchCell: BaseCollectionCell<User> {
         return label
     }()
     
-    let followButton: UIButton = {
+    lazy var followButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = .white
-        button.setTitle("追蹤", for: .normal)
+       
         button.layer.borderWidth = 1
-        button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(followUser), for: .touchUpInside)
         button.layer.cornerRadius = 17
         return button
     }()
     
     override var item: User! {
         didSet {
-            profileImageView.sd_setImage(with: URL(string: item.profileImageUrl))
+            profileImageView.sd_setImage(with: URL(string: item.profileImageUrl ?? ""))
             usernameLabel.text = item.fullName
+            
+            if item.isFollowing == true {
+                followButton.setTitleColor(.white, for: .normal)
+                followButton.backgroundColor = .black
+                followButton.setTitle("追蹤中", for: .normal)
+            } else {
+                followButton.setTitleColor(.black, for: .normal)
+                followButton.backgroundColor = .white
+                followButton.setTitle("追蹤", for: .normal)
+            }
         }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+    }
+    
+    @objc fileprivate func followUser() {
+        (parentController as? UsersSearchDelegate)?.followUser(userId: item._id)
     }
     
     fileprivate func setupViews() {
