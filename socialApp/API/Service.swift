@@ -139,8 +139,8 @@ class Service: NSObject {
             }
     }
     
-    func followUser(userId id: String, completion: @escaping(Result<Int, Error>) -> ()) {
-        let url = "\(Service.shared.baseUrl)/user/follow/\(id)"
+    func followUser(userId id: String, url: String, completion: @escaping(Result<Int, Error>) -> ()) {
+        
         AF.request(url, method: .post)
             .validate(statusCode: 200..<300)
             .response { dataResp in

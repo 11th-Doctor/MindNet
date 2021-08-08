@@ -80,7 +80,9 @@ extension ProfileController: PostDelegate {
                     print(err)
                     break
                 case .success(_):
-                    self.fetchUserProfile()
+                    if let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController {
+                        mainTabBarController.refreshPosts()
+                    }
                 }
             }
         })

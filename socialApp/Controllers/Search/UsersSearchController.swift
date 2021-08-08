@@ -6,13 +6,18 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class UsersSearchController: BaseCollectionController<UsersSearchCell, User> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         
+        let hud = JGProgressHUD(style: .dark)
+        hud.show(in: self.view)
+        
         Service.shared.searchForUsers { result in
+            
             switch result {
             case .failure(let err):
                 print("Failed to search users", err)
@@ -22,6 +27,8 @@ class UsersSearchController: BaseCollectionController<UsersSearchCell, User> {
                 self.collectionView.reloadData()
                 break
             }
+            
+            hud.dismiss(animated: true)
         }
     }
     
@@ -32,31 +39,25 @@ class UsersSearchController: BaseCollectionController<UsersSearchCell, User> {
 
 extension UsersSearchController: UsersSearchDelegate {
     
-    func followUser(userId: String) {
-        Service.shared.followUser(userId: userId) { result in
+    func didFollowUser(user: User) {
+        let userId = user._id
+        let isFollowing = user.isFollowing == true
+        let url = "\(Service.shared.baseUrl)/user/\(isFollowing ? "unfollow" : "follow")/\(userId)"
+        
+        Service.shared.followUser(userId: userId, url: url) { result in
             switch result {
             case .failure(let err):
-                print("Failed to follow user: ",err)
+                print("Faied follow/unfollow the user ",err)
                 break
             case.success(_):
-                let index = self.items.firstIndex(where: { $0._id == userId })
-                
-                if let index = index {
+                if let index = self.items.firstIndex(where: { $0._id == userId}) {
+                    self.items[index].isFollowing = !isFollowing
                     let indexPath = IndexPath(item: index, section: 0)
-                    let itemCell = self.collectionView.cellForItem(at: indexPath) as? UsersSearchCell
-                    itemCell?.followButton.backgroundColor = .black
-                    itemCell?.followButton.setTitle("取消追蹤", for: .normal)
-                    itemCell?.followButton.setTitleColor(.white, for: .normal)
-//                    self.collectionView.reloadItems(at: [indexPath])
+                    self.collectionView.reloadItems(at: [indexPath])
                 }
-                
                 break
             }
         }
-    }
-    
-    func unfollowUser(userId: String) {
-        print("userId to unfollow: \(userId)")
     }
 }
 

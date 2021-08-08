@@ -79,7 +79,9 @@ extension HomeController: PostDelegate {
                     print(err)
                     break
                 case .success(_):
-                    self.fetchPosts()
+                    if let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController {
+                        mainTabBarController.refreshPosts()
+                    }
                 }
             }
         })

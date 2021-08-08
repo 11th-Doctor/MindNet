@@ -8,8 +8,7 @@
 import UIKit
 
 protocol UsersSearchDelegate {
-    func followUser(userId: String)
-    func unfollowUser(userId: String)
+    func didFollowUser(user: User)
 }
 
 class UsersSearchCell: BaseCollectionCell<User> {
@@ -61,7 +60,7 @@ class UsersSearchCell: BaseCollectionCell<User> {
     }
     
     @objc fileprivate func followUser() {
-        (parentController as? UsersSearchDelegate)?.followUser(userId: item._id)
+        (parentController as? UsersSearchDelegate)?.didFollowUser(user: item)
     }
     
     fileprivate func setupViews() {
