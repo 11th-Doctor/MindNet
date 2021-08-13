@@ -7,11 +7,11 @@
 
 import UIKit
 
-class BaseCollectionCell<T: Decodable>: UICollectionViewCell {
+class BaseCollectionCell<T: Decodable, U: ViewModel<T>>: UICollectionViewCell {
     
     var parentController: UIViewController?
     
-    var item: T!
+    var item: U!
     
     let separatorView: UIView = {
         let view = UIView()

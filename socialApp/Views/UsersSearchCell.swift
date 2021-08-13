@@ -6,12 +6,9 @@
 //
 
 import UIKit
+import Combine
 
-protocol UsersSearchDelegate {
-    func didFollowUser(user: User)
-}
-
-class UsersSearchCell: BaseCollectionCell<User> {
+class UsersSearchCell: BaseCollectionCell<User, UserViewModel> {
     
     let profileImageView: CircularImageView = {
         let view = CircularImageView(width: 44, image: nil)
@@ -37,20 +34,11 @@ class UsersSearchCell: BaseCollectionCell<User> {
         return button
     }()
     
-    override var item: User! {
+    override var item: UserViewModel! {
         didSet {
-            profileImageView.sd_setImage(with: URL(string: item.profileImageUrl ?? ""))
+            profileImageView.sd_setImage(with: URL(string: item.profileImageUrl))
             usernameLabel.text = item.fullName
-            
-            if item.isFollowing == true {
-                followButton.setTitleColor(.white, for: .normal)
-                followButton.backgroundColor = .black
-                followButton.setTitle("追蹤中", for: .normal)
-            } else {
-                followButton.setTitleColor(.black, for: .normal)
-                followButton.backgroundColor = .white
-                followButton.setTitle("追蹤", for: .normal)
-            }
+            item.bindFollowButton(followButton: followButton)
         }
     }
     
@@ -60,7 +48,7 @@ class UsersSearchCell: BaseCollectionCell<User> {
     }
     
     @objc fileprivate func followUser() {
-        (parentController as? UsersSearchDelegate)?.didFollowUser(user: item)
+        item.didFollowUser()
     }
     
     fileprivate func setupViews() {

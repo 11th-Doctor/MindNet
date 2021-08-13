@@ -42,7 +42,7 @@ class Service: NSObject {
             }
     }
     
-    func fetchPosts(completion: @escaping(Result<[Post], Error>) -> ()) {
+    func fetchPosts(completion: @escaping(Result<[PostViewModel], Error>) -> ()) {
         let url = "\(Service.shared.baseUrl)/post"
         AF.request(url, method: .get)
             .validate(statusCode: 200..<300)
@@ -54,7 +54,8 @@ class Service: NSObject {
                 
                 do {
                     let allPosts = try JSONDecoder().decode([Post].self, from: dataResp.data ?? Data())
-                    completion(.success(allPosts))
+                    let postViewModels = allPosts.map({ return PostViewModel(post: $0) })
+                    completion(.success(postViewModels))
                 } catch let err {
                     completion(.failure(err))
                 }
@@ -105,7 +106,7 @@ class Service: NSObject {
         }
     }
     
-    func searchForUsers(completion: @escaping(Result<[User], Error>)->()) {
+    func searchForUsers(completion: @escaping(Result<[UserViewModel], Error>)->()) {
         let url = "\(Service.shared.baseUrl)/user/search"
         
         AF.request(url, method: .get)
@@ -118,7 +119,8 @@ class Service: NSObject {
                 
                 do {
                     let users = try JSONDecoder().decode([User].self, from: dataResp.data ?? Data())
-                    completion(.success(users))
+                    let userViewModels = users.map({ return UserViewModel(user: $0) })
+                    completion(.success(userViewModels))
                 } catch let err {
                     completion(.failure(err))
                 }

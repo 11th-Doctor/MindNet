@@ -10,6 +10,9 @@
 		899F22040B1F7EFE4AE117D2 /* Pods_socialApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B92001CF9E7B5E79C073D2F2 /* Pods_socialApp.framework */; };
 		D86016A96EEC8E6A33345D61 /* Pods_socialAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F53BF204304739769A05EDB /* Pods_socialAppTests.framework */; };
 		E8AEF0EEAA9BA3EEECE0B267 /* Pods_socialApp_socialAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87B25A7CF81447D8551EE4BF /* Pods_socialApp_socialAppUITests.framework */; };
+		FB0196F726C00437006B06D9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0196F626C00437006B06D9 /* ViewModel.swift */; };
+		FB0196F926C00994006B06D9 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0196F826C00994006B06D9 /* PostViewModel.swift */; };
+		FB0196FB26C012C4006B06D9 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0196FA26C012C4006B06D9 /* UserViewModel.swift */; };
 		FB4243D326B5912C00BBBCF0 /* UsersSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4243D226B5912C00BBBCF0 /* UsersSearchController.swift */; };
 		FB4243D526B591A000BBBCF0 /* UsersSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4243D426B591A000BBBCF0 /* UsersSearchCell.swift */; };
 		FB67363E269B328800620975 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB67363D269B328800620975 /* Post.swift */; };
@@ -64,6 +67,9 @@
 		87B25A7CF81447D8551EE4BF /* Pods_socialApp_socialAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_socialApp_socialAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B92001CF9E7B5E79C073D2F2 /* Pods_socialApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_socialApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E477D64577C47D3F88E8B8 /* Pods-socialApp-socialAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-socialApp-socialAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-socialApp-socialAppUITests/Pods-socialApp-socialAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FB0196F626C00437006B06D9 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		FB0196F826C00994006B06D9 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		FB0196FA26C012C4006B06D9 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		FB4243D226B5912C00BBBCF0 /* UsersSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersSearchController.swift; sourceTree = "<group>"; };
 		FB4243D426B591A000BBBCF0 /* UsersSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersSearchCell.swift; sourceTree = "<group>"; };
 		FB67363D269B328800620975 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -148,6 +154,16 @@
 				1F53BF204304739769A05EDB /* Pods_socialAppTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FB0196F526C00393006B06D9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				FB0196F626C00437006B06D9 /* ViewModel.swift */,
+				FB0196F826C00994006B06D9 /* PostViewModel.swift */,
+				FB0196FA26C012C4006B06D9 /* UserViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		FB4243D126B5910600BBBCF0 /* Search */ = {
@@ -250,6 +266,7 @@
 		FBE5AA7E2691EE9100496967 /* socialApp */ = {
 			isa = PBXGroup;
 			children = (
+				FB0196F526C00393006B06D9 /* ViewModels */,
 				FB6D7CFF269DDEF2006407B8 /* Views */,
 				FB67363C269B326700620975 /* Models */,
 				FB94CDAB2695E726006618E4 /* API */,
@@ -525,6 +542,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB94CDA52695DAE6006618E4 /* IndentedTextField.swift in Sources */,
+				FB0196FB26C012C4006B06D9 /* UserViewModel.swift in Sources */,
 				FBBF42DA26A338B900737EC7 /* ProfileHeader.swift in Sources */,
 				FBC825C9269C79AE0088927F /* CreatePostController.swift in Sources */,
 				FB94CDAD2695E73A006618E4 /* Service.swift in Sources */,
@@ -542,6 +560,8 @@
 				FB4243D326B5912C00BBBCF0 /* UsersSearchController.swift in Sources */,
 				FBBF42D326A30D6700737EC7 /* RegisterController.swift in Sources */,
 				FB6D7D03269DE296006407B8 /* BaseCollectionCell.swift in Sources */,
+				FB0196F726C00437006B06D9 /* ViewModel.swift in Sources */,
+				FB0196F926C00994006B06D9 /* PostViewModel.swift in Sources */,
 				FBE5AAB02691FE0500496967 /* Extensions.swift in Sources */,
 				FB6D7D01269DDF09006407B8 /* PostCell.swift in Sources */,
 				FBBF42D626A3294400737EC7 /* ProfileController.swift in Sources */,

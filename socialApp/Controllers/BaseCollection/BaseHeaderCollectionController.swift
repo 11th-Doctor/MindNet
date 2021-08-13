@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseHeaderCollectionController<T: BaseCollectionCell<U>, U: Decodable, H: UICollectionReusableView>: BaseCollectionController<T, U> {
+class BaseHeaderCollectionController<T: BaseCollectionCell<U, V>, U: Decodable, V:ViewModel<U> , H: UICollectionReusableView>: BaseCollectionController<T, U, V> {
     
     let supplementaryHeaderId = "supplementaryHeaderId"
     

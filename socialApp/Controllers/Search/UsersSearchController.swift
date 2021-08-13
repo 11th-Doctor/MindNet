@@ -8,7 +8,7 @@
 import UIKit
 import JGProgressHUD
 
-class UsersSearchController: BaseCollectionController<UsersSearchCell, User> {
+class UsersSearchController: BaseCollectionController<UsersSearchCell, User, UserViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -22,8 +22,8 @@ class UsersSearchController: BaseCollectionController<UsersSearchCell, User> {
             case .failure(let err):
                 print("Failed to search users", err)
                 break
-            case .success(let users):
-                self.items = users
+            case .success(let userViewModels):
+                self.items = userViewModels
                 self.collectionView.reloadData()
                 break
             }
@@ -34,30 +34,6 @@ class UsersSearchController: BaseCollectionController<UsersSearchCell, User> {
     
     fileprivate func setupViews() {
         navigationItem.title = "搜尋"
-    }
-}
-
-extension UsersSearchController: UsersSearchDelegate {
-    
-    func didFollowUser(user: User) {
-        let userId = user._id
-        let isFollowing = user.isFollowing == true
-        let url = "\(Service.shared.baseUrl)/user/\(isFollowing ? "unfollow" : "follow")/\(userId)"
-        
-        Service.shared.followUser(userId: userId, url: url) { result in
-            switch result {
-            case .failure(let err):
-                print("Faied follow/unfollow the user ",err)
-                break
-            case.success(_):
-                if let index = self.items.firstIndex(where: { $0._id == userId}) {
-                    self.items[index].isFollowing = !isFollowing
-                    let indexPath = IndexPath(item: index, section: 0)
-                    self.collectionView.reloadItems(at: [indexPath])
-                }
-                break
-            }
-        }
     }
 }
 

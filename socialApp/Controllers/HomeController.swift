@@ -8,7 +8,7 @@
 import UIKit
 import JGProgressHUD
 
-class HomeController: BaseCollectionController<PostCell, Post> {
+class HomeController: BaseCollectionController<PostCell, Post, PostViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +47,8 @@ class HomeController: BaseCollectionController<PostCell, Post> {
             case .failure(let err):
                 print("Failed to fetch posts", err.localizedDescription)
                 break
-            case .success(let posts):
-                self.items = posts
+            case .success(let postViewModels):
+                self.items = postViewModels
                 self.collectionView.reloadData()
                 break
             }

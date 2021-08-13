@@ -8,7 +8,7 @@
 import UIKit
 import JGProgressHUD
 
-class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileHeader> {
+class ProfileController: BaseHeaderCollectionController<PostCell, Post, PostViewModel , ProfileHeader> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,9 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, ProfileH
                 break
             case .success(let user):
                 self.user = user
-                self.items = user.posts ?? [Post]()
+                let posts = user.posts ?? [Post]()
+                let postViewModels = posts.map({ return PostViewModel(post: $0 )})
+                self.items = postViewModels
                 self.collectionView.reloadData()
                 break
             }

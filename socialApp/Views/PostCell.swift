@@ -12,7 +12,7 @@ protocol PostDelegate {
     func showOptions(postId: String)
 }
 
-class PostCell: BaseCollectionCell<Post> {
+class PostCell: BaseCollectionCell<Post, PostViewModel> {
     
     let profileImageView: CircularImageView = {
         let view = CircularImageView(width: 44, image: nil)
@@ -30,7 +30,6 @@ class PostCell: BaseCollectionCell<Post> {
     
     let fromNowLabel: UILabel = {
         let label = UILabel()
-//        label.text = "Posted five days ago"
         label.textColor = .gray
         
         return label
@@ -58,32 +57,29 @@ class PostCell: BaseCollectionCell<Post> {
     
     lazy var likeButton: UIButton = {
         let button = UIButton()
-//        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
         button.setImage(#imageLiteral(resourceName: "like-outline"), for: .normal)
         return button
     }()
     
     lazy var commentButton: UIButton = {
         let button = UIButton()
-//        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
         button.setImage(#imageLiteral(resourceName: "comment-bubble"), for: .normal)
         return button
     }()
     
     lazy var numLikesButton: UIButton = {
         let button = UIButton()
-//        button.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
         button.setTitle("0 個喜歡", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15)
         return button
     }()
     
-    override var item: Post! {
+    override var item: PostViewModel! {
         didSet {
-            profileImageView.sd_setImage(with: URL(string: item.user.profileImageUrl ?? ""))
+            profileImageView.sd_setImage(with: URL(string: item.profileImageUrl))
             fromNowLabel.text = item.fromNow
-            usernameLabel.text = item.user.fullName
+            usernameLabel.text = item.fullName
             postImageView.sd_setImage(with: URL(string: item.imageUrl))
             textBodyLabel.text = item.text
         }
@@ -102,7 +98,7 @@ class PostCell: BaseCollectionCell<Post> {
     }
     
     @objc func showOptions() {
-        (parentController as? PostDelegate)?.showOptions(postId: item._id)
+        (parentController as? PostDelegate)?.showOptions(postId: item.id)
     }
     
     var imageHeightAnchor: NSLayoutConstraint!

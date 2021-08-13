@@ -7,10 +7,10 @@
 
 import UIKit
 
-class BaseCollectionController<T: BaseCollectionCell<U>, U: Decodable>: UICollectionViewController {
+class BaseCollectionController<T: BaseCollectionCell<U, V>, U: Decodable, V: ViewModel<U>>: UICollectionViewController {
     
     private let cellId = "cellId"
-    var items: [U] = [U]() {
+    var items: [V] = [V]() {
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
