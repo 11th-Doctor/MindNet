@@ -8,10 +8,6 @@
 import UIKit
 import SDWebImage
 
-protocol PostDelegate {
-    func showOptions(postId: String)
-}
-
 class PostCell: BaseCollectionCell<Post, PostViewModel> {
     
     let profileImageView: CircularImageView = {
@@ -98,7 +94,10 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
     }
     
     @objc func showOptions() {
-        (parentController as? PostDelegate)?.showOptions(postId: item.id)
+        if let viewController = parentController {
+            item.showOptions(viewController: viewController)
+        }
+//        (parentController as? PostDelegate)?.showOptions(postId: item.id)
     }
     
     var imageHeightAnchor: NSLayoutConstraint!

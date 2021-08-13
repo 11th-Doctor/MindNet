@@ -72,31 +72,6 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, PostView
     }
 }
 
-extension ProfileController: PostDelegate {
-    func showOptions(postId: String) {
-        let alertController = UIAlertController(title: "選單", message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "刪除貼文", style: .destructive) { _ in
-            Service.shared.deletePost(postId: postId) { result in
-                switch result {
-                case .failure(let err):
-                    print(err)
-                    break
-                case .success(_):
-                    if let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController {
-                        mainTabBarController.refreshPosts()
-                    }
-                }
-            }
-        })
-        
-        alertController.addAction(.init(title: "取消", style: .cancel, handler: nil))
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    
-}
-
 extension ProfileController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width
