@@ -8,5 +8,9 @@
 import Foundation
 
 class ViewModel<T: Decodable>: ObservableObject {
-
+    var model: T!
+    
+    required init(model: T) {
+        self.model = model
+    }
 }

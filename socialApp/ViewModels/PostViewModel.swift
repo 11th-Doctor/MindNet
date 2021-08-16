@@ -16,13 +16,14 @@ class PostViewModel: ViewModel<Post> {
     let text: String
     let imageUrl: String
     
-    init(post: Post) {
-        id = post._id
-        profileImageUrl = post.user.profileImageUrl ?? ""
-        fullName = post.user.fullName
-        fromNow = post.fromNow
-        text = post.text
-        imageUrl = post.imageUrl
+    required init(model: Post) {
+        id = model._id
+        profileImageUrl = model.user.profileImageUrl ?? ""
+        fullName = model.user.fullName
+        fromNow = model.fromNow
+        text = model.text
+        imageUrl = model.imageUrl
+        super.init(model: model)
     }
     
     func showOptions(viewController: UIViewController) {

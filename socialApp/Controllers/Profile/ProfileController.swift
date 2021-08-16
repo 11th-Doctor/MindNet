@@ -8,7 +8,14 @@
 import UIKit
 import JGProgressHUD
 
-class ProfileController: BaseHeaderCollectionController<PostCell, Post, PostViewModel , ProfileHeader> {
+class ProfileController: BaseHeaderCollectionController<PostCell, Post, PostViewModel , ProfileHeader, User, UserHeaderViewModel> {
+    
+    let userId: String
+    
+    init(userId: String) {
+        self.userId = userId
+        super.init()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,11 +27,12 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, PostView
         collectionView.refreshControl?.addTarget(self, action: #selector(fetchUserProfile), for: .valueChanged)
     }
     
-    var user: User?
-    
     override func setupHeader(header: ProfileHeader) {
         header.profileController = self
-        header.user = user
+        if let headerViewModel = headerItem {
+            headerViewModel.isPublic = !userId.isEmpty
+            header.item = headerViewModel
+        }
     }
     
     func selectProfile() {
@@ -38,17 +46,16 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, PostView
         let hud = JGProgressHUD(style: .dark)
         hud.show(in: view)
         
-        Service.shared.fetchUserProfile { result in
+        Service.shared.fetchUserProfile(userId: userId) { result in
             switch result {
             case .failure(let err):
                 print("Failed to fetch user profile", err)
                 break
             case .success(let user):
-                self.user = user
+                self.headerItem = UserHeaderViewModel(model: user)
                 let posts = user.posts ?? [Post]()
-                let postViewModels = posts.map({ return PostViewModel(post: $0 )})
+                let postViewModels = posts.map({ return PostViewModel(model: $0 )})
                 self.items = postViewModels
-                self.collectionView.reloadData()
                 break
             }
             hud.dismiss(animated: true)
@@ -57,7 +64,7 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, PostView
     }
     
     fileprivate func uploadUserProfileImage(profileImage: UIImage) {
-        if let user = user {
+        if let user = headerItem?.model {
             Service.shared.updateProfile(user: user, avatar: profileImage) { result in
                 switch result {
                 case .failure(let err):
@@ -69,6 +76,10 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, PostView
                 }
             }
         }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

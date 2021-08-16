@@ -9,6 +9,7 @@ import UIKit
 import JGProgressHUD
 
 class UsersSearchController: BaseCollectionController<UsersSearchCell, User, UserViewModel> {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -30,6 +31,12 @@ class UsersSearchController: BaseCollectionController<UsersSearchCell, User, Use
             
             hud.dismiss(animated: true)
         }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = items[indexPath.item]
+        let profileController = ProfileController(userId: item.userIdToFollow)
+        navigationController?.pushViewController(profileController, animated: true)
     }
     
     fileprivate func setupViews() {

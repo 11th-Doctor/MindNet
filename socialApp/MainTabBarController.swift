@@ -10,7 +10,7 @@ import UIKit
 class MainTabBarController: UITabBarController {
     
     var homeController = HomeController()
-    var profileController = ProfileController()
+    var profileController = ProfileController(userId: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()

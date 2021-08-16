@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileHeader: UICollectionReusableView {
+class ProfileHeader: BaseReusableView<User, UserHeaderViewModel> {
     
     lazy var profileImageView: CircularImageView = {
         let view = CircularImageView(width: 80)
@@ -40,7 +40,7 @@ class ProfileHeader: UICollectionReusableView {
     
     let postsCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "12"
+        label.text = "0"
         label.font = .boldSystemFont(ofSize: 14)
         label.textAlignment = .center
         return label
@@ -57,7 +57,7 @@ class ProfileHeader: UICollectionReusableView {
     
     let followersCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "12"
+        label.text = "0"
         label.font = .boldSystemFont(ofSize: 14)
         label.textAlignment = .center
         return label
@@ -74,7 +74,7 @@ class ProfileHeader: UICollectionReusableView {
     
     let followingCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "12"
+        label.text = "0"
         label.font = .boldSystemFont(ofSize: 14)
         label.textAlignment = .center
         return label
@@ -106,11 +106,11 @@ class ProfileHeader: UICollectionReusableView {
         return label
     }()
     
-    var user: User? {
+    override var item: UserHeaderViewModel! {
         didSet {
-            fullNameLabel.text = user?.fullName
-            profileImageView.sd_setImage(with: URL(string: user?.profileImageUrl ?? ""))
-            
+            fullNameLabel.text = item.fullName
+            profileImageView.sd_setImage(with: item.profileImageUrl)
+            followersCountLabel.text = "\(item.following)"
         }
     }
     

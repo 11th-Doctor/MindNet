@@ -21,11 +21,11 @@ class UserViewModel: ViewModel<User> {
     
     private var subscribers: [AnyCancellable?] = []
     
-    init(user: User) {
-        userIdToFollow = user._id
-        fullName = user.fullName
-        profileImageUrl = user.profileImageUrl ?? ""
-        isFollowing = user.isFollowing ?? false
+    required init(model: User) {
+        userIdToFollow = model._id
+        fullName = model.fullName
+        profileImageUrl = model.profileImageUrl ?? ""
+        isFollowing = model.isFollowing ?? false
         
         if isFollowing == true {
             followButtonTitleColour = .white
@@ -36,6 +36,8 @@ class UserViewModel: ViewModel<User> {
             followButtonBackgroundColour = .white
             followButtonTitle = "追蹤"
         }
+        
+        super.init(model: model)
     }
     
     func bindFollowButton(followButton: UIButton) {

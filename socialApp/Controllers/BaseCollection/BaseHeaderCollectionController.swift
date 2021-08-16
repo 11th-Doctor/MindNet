@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseHeaderCollectionController<T: BaseCollectionCell<U, V>, U: Decodable, V:ViewModel<U> , H: UICollectionReusableView>: BaseCollectionController<T, U, V> {
+class BaseHeaderCollectionController<T: BaseCollectionCell<U, V>, U: Decodable, V:ViewModel<U> , H: BaseReusableView<I, J>, I: Decodable, J: ViewModel<I>>: BaseCollectionController<T, U, V> {
     
     let supplementaryHeaderId = "supplementaryHeaderId"
     
@@ -15,6 +15,8 @@ class BaseHeaderCollectionController<T: BaseCollectionCell<U, V>, U: Decodable, 
         super.viewDidLoad()
         collectionView.register(H.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: supplementaryHeaderId)
     }
+    
+    var headerItem: J?
     
     func setupHeader(header: H) {}
     
