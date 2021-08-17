@@ -30,7 +30,6 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, PostView
     override func setupHeader(header: ProfileHeader) {
         header.profileController = self
         if let headerViewModel = headerItem {
-            headerViewModel.isPublic = !userId.isEmpty
             header.item = headerViewModel
         }
     }
@@ -52,7 +51,8 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, PostView
                 print("Failed to fetch user profile", err)
                 break
             case .success(let user):
-                self.headerItem = UserHeaderViewModel(model: user)
+                let headerViewModel = UserHeaderViewModel(model: user, isEditable: self.userId.isEmpty)
+                self.headerItem = headerViewModel
                 let posts = user.posts ?? [Post]()
                 let postViewModels = posts.map({ return PostViewModel(model: $0 )})
                 self.items = postViewModels

@@ -15,4 +15,5 @@ struct User: Decodable {
     var posts: [Post]?
     var isFollowing: Bool?
     var following: Int?
+    var followers: Int?
 }

@@ -110,7 +110,10 @@ class ProfileHeader: BaseReusableView<User, UserHeaderViewModel> {
         didSet {
             fullNameLabel.text = item.fullName
             profileImageView.sd_setImage(with: item.profileImageUrl)
-            followersCountLabel.text = "\(item.following)"
+            followingCountLabel.text = "\(item.following)"
+            followersCountLabel.text = "\(item.followers)"
+            postsCountLabel.text = "\(item.posts)"
+            item.bindFollowEditButtons(followButton: followButton, editProfileButton: editProfileButton)
         }
     }
     
@@ -138,6 +141,9 @@ class ProfileHeader: BaseReusableView<User, UserHeaderViewModel> {
         
         followButton.anchor(top: profileImageView.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 28)
         followButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        editProfileButton.anchor(top: profileImageView.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 28)
+        editProfileButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         let countsStack = UIStackView(arrangedSubviews: [
             countsVerticalStack(titleLabel: postsCountLabel, coutsLabel: postsLabel),
