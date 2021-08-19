@@ -61,15 +61,17 @@ class UserViewModel: ViewModel<User> {
     func didFollowUser() {
         let url = "\(Service.shared.baseUrl)/user/\(isFollowing ? "unfollow" : "follow")/\(userIdToFollow)"
         
+        isSubmitAllowed = false
+
         Service.shared.followUser(userId: userIdToFollow, url: url) { result in
             switch result {
             case .failure(let err):
                 print("Failed to folow the user: ", err)
                 break
             case.success(_):
-                
+
                 self.isFollowing = !self.isFollowing
-                
+
                 if self.isFollowing == true {
                     self.followButtonTitleColour = .white
                     self.followButtonBackgroundColour = .black
@@ -79,9 +81,9 @@ class UserViewModel: ViewModel<User> {
                     self.followButtonBackgroundColour = .white
                     self.followButtonTitle = "追蹤"
                 }
-
                 break
             }
+            self.isSubmitAllowed = true
         }
     }
 }

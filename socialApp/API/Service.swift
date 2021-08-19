@@ -55,6 +55,7 @@ class Service: NSObject {
                 do {
                     let allPosts = try JSONDecoder().decode([Post].self, from: dataResp.data ?? Data())
                     let postViewModels = allPosts.map({ return PostViewModel(model: $0) })
+                    
                     completion(.success(postViewModels))
                 } catch let err {
                     completion(.failure(err))

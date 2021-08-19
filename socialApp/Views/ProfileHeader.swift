@@ -25,6 +25,7 @@ class ProfileHeader: BaseReusableView<User, UserHeaderViewModel> {
         button.titleLabel?.font = .boldSystemFont(ofSize: 13)
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 1
+        button.addTarget(self, action: #selector(followUser), for: .touchUpInside)
         return button
     }()
     
@@ -35,6 +36,7 @@ class ProfileHeader: BaseReusableView<User, UserHeaderViewModel> {
         button.backgroundColor = .init(red: 0.2392156860, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         button.titleLabel?.font = .boldSystemFont(ofSize: 13)
         button.layer.cornerRadius = 15
+        button.addTarget(self, action: #selector(editProfile), for: .touchUpInside)
         return button
     }()
     
@@ -127,6 +129,14 @@ class ProfileHeader: BaseReusableView<User, UserHeaderViewModel> {
     
     @objc fileprivate func handleEditProfile() {
         profileController?.selectProfile()
+    }
+    
+    @objc func editProfile() {
+        item.editProfile()
+    }
+    
+    @objc func followUser() {
+        item.didFollowUser()
     }
     
     func setupViews() {

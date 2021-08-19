@@ -72,6 +72,39 @@ class UserHeaderViewModel: ViewModel<User> {
         }
     }
     
+    func didFollowUser() {
+        let url = "\(Service.shared.baseUrl)/user/\(isFollowing ? "unfollow" : "follow")/\(userId)"
+        
+        isSubmitAllowed = false
+
+        Service.shared.followUser(userId: userId, url: url) { result in
+            switch result {
+            case .failure(let err):
+                print("Failed to folow the user: ", err)
+                break
+            case.success(_):
+
+                self.isFollowing = !self.isFollowing
+
+                if self.isFollowing == true {
+                    self.followButtonTitleColour = .white
+                    self.followButtonBackgroundColour = .black
+                    self.followButtonTitle = "追蹤中"
+                } else {
+                    self.followButtonTitleColour = .black
+                    self.followButtonBackgroundColour = .white
+                    self.followButtonTitle = "追蹤"
+                }
+                break
+            }
+            self.isSubmitAllowed = true
+        }
+    }
+    
+    func editProfile() {
+        print("Editting profile...")
+    }
+    
     required init(model: User) {
         fatalError("init(model:) has not been implemented")
     }
