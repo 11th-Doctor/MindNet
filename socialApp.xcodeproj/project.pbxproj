@@ -19,6 +19,11 @@
 		FB6D7CFE269DCE16006407B8 /* BaseCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D7CFD269DCE16006407B8 /* BaseCollectionController.swift */; };
 		FB6D7D01269DDF09006407B8 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D7D00269DDF09006407B8 /* PostCell.swift */; };
 		FB6D7D03269DE296006407B8 /* BaseCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D7D02269DE296006407B8 /* BaseCollectionCell.swift */; };
+		FB83117026D0F95600F7E5D0 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB83116F26D0F95600F7E5D0 /* Comment.swift */; };
+		FB83117226D0F9E800F7E5D0 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB83117126D0F9E800F7E5D0 /* CommentCell.swift */; };
+		FB83117426D0FA8600F7E5D0 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB83117326D0FA8600F7E5D0 /* CommentViewModel.swift */; };
+		FB83117626D0FB8800F7E5D0 /* PostDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB83117526D0FB8800F7E5D0 /* PostDetailsController.swift */; };
+		FB83117826D1010400F7E5D0 /* CustomAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB83117726D1010400F7E5D0 /* CustomAccessoryView.swift */; };
 		FB882DE126C976F1003D3EA2 /* BaseReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB882DE026C976F1003D3EA2 /* BaseReusableView.swift */; };
 		FB882DE326CAAB28003D3EA2 /* UserHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB882DE226CAAB28003D3EA2 /* UserHeaderViewModel.swift */; };
 		FB94CDA52695DAE6006618E4 /* IndentedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94CDA42695DAE6006618E4 /* IndentedTextField.swift */; };
@@ -78,6 +83,11 @@
 		FB6D7CFD269DCE16006407B8 /* BaseCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionController.swift; sourceTree = "<group>"; };
 		FB6D7D00269DDF09006407B8 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		FB6D7D02269DE296006407B8 /* BaseCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionCell.swift; sourceTree = "<group>"; };
+		FB83116F26D0F95600F7E5D0 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		FB83117126D0F9E800F7E5D0 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		FB83117326D0FA8600F7E5D0 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		FB83117526D0FB8800F7E5D0 /* PostDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsController.swift; sourceTree = "<group>"; };
+		FB83117726D1010400F7E5D0 /* CustomAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAccessoryView.swift; sourceTree = "<group>"; };
 		FB882DE026C976F1003D3EA2 /* BaseReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseReusableView.swift; sourceTree = "<group>"; };
 		FB882DE226CAAB28003D3EA2 /* UserHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHeaderViewModel.swift; sourceTree = "<group>"; };
 		FB94CDA42695DAE6006618E4 /* IndentedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndentedTextField.swift; sourceTree = "<group>"; };
@@ -167,6 +177,7 @@
 				FB0196F826C00994006B06D9 /* PostViewModel.swift */,
 				FB0196FA26C012C4006B06D9 /* UserViewModel.swift */,
 				FB882DE226CAAB28003D3EA2 /* UserHeaderViewModel.swift */,
+				FB83117326D0FA8600F7E5D0 /* CommentViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -184,6 +195,7 @@
 			children = (
 				FB67363D269B328800620975 /* Post.swift */,
 				FBBF42D026A2EB8D00737EC7 /* User.swift */,
+				FB83116F26D0F95600F7E5D0 /* Comment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -205,8 +217,18 @@
 				FB6D7D00269DDF09006407B8 /* PostCell.swift */,
 				FBBF42D926A338B900737EC7 /* ProfileHeader.swift */,
 				FB4243D426B591A000BBBCF0 /* UsersSearchCell.swift */,
+				FB83117126D0F9E800F7E5D0 /* CommentCell.swift */,
+				FB83117726D1010400F7E5D0 /* CustomAccessoryView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		FB83116E26D0F92000F7E5D0 /* PostDetails */ = {
+			isa = PBXGroup;
+			children = (
+				FB83117526D0FB8800F7E5D0 /* PostDetailsController.swift */,
+			);
+			path = PostDetails;
 			sourceTree = "<group>";
 		};
 		FB94CDA32695DAC9006618E4 /* Components */ = {
@@ -221,6 +243,7 @@
 		FB94CDA82695E2C7006618E4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FB83116E26D0F92000F7E5D0 /* PostDetails */,
 				FB4243D126B5910600BBBCF0 /* Search */,
 				FBBF42D426A3293300737EC7 /* Profile */,
 				FB6D7CFC269DCDB5006407B8 /* BaseCollection */,
@@ -553,6 +576,7 @@
 				FBC825C9269C79AE0088927F /* CreatePostController.swift in Sources */,
 				FB94CDAD2695E73A006618E4 /* Service.swift in Sources */,
 				FBE5AA842691EE9100496967 /* LoginController.swift in Sources */,
+				FB83117426D0FA8600F7E5D0 /* CommentViewModel.swift in Sources */,
 				FB882DE126C976F1003D3EA2 /* BaseReusableView.swift in Sources */,
 				FB94CDAA2695E2F9006618E4 /* HomeController.swift in Sources */,
 				FB94CDA72695DF65006618E4 /* MainTabBarController.swift in Sources */,
@@ -570,9 +594,13 @@
 				FB6D7D03269DE296006407B8 /* BaseCollectionCell.swift in Sources */,
 				FB0196F726C00437006B06D9 /* ViewModel.swift in Sources */,
 				FB0196F926C00994006B06D9 /* PostViewModel.swift in Sources */,
+				FB83117826D1010400F7E5D0 /* CustomAccessoryView.swift in Sources */,
 				FBE5AAB02691FE0500496967 /* Extensions.swift in Sources */,
 				FB6D7D01269DDF09006407B8 /* PostCell.swift in Sources */,
+				FB83117626D0FB8800F7E5D0 /* PostDetailsController.swift in Sources */,
+				FB83117026D0F95600F7E5D0 /* Comment.swift in Sources */,
 				FBBF42D626A3294400737EC7 /* ProfileController.swift in Sources */,
+				FB83117226D0F9E800F7E5D0 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

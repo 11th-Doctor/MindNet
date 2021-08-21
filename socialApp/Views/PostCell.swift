@@ -60,6 +60,7 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
     lazy var commentButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "comment-bubble"), for: .normal)
+        button.addTarget(self, action: #selector(handleComment), for: .touchUpInside)
         return button
     }()
     
@@ -97,7 +98,12 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
         if let viewController = parentController {
             item.showOptions(viewController: viewController)
         }
-//        (parentController as? PostDelegate)?.showOptions(postId: item.id)
+    }
+    
+    @objc func handleComment() {
+        let postDetailsController = PostDetailsController(postId: item.id)
+        postDetailsController.hidesBottomBarWhenPushed = true
+        parentController?.navigationController?.pushViewController(postDetailsController, animated: true)
     }
     
     var imageHeightAnchor: NSLayoutConstraint!

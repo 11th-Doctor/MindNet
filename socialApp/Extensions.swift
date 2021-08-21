@@ -36,5 +36,12 @@ extension UIView {
             self.heightAnchor.constraint(equalToConstant: height).isActive = true
         }
     }
+    
+    func setupShadow(opacity: Float = 0, radius: CGFloat = 0, offset: CGSize = .zero, colour: UIColor = .black) {
+        layer.shadowOpacity = opacity
+        layer.shadowRadius = radius
+        layer.shadowOffset = offset
+        layer.shadowColor = colour.cgColor
+    }
 
 }

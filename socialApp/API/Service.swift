@@ -159,4 +159,17 @@ class Service: NSObject {
                 completion(.success(1))
             }
     }
+    
+    func submitComment(postId: String, comment: String, completion: @escaping(Result<Int, Error>) -> ()) {
+        let url = "\(Service.shared.baseUrl)/comment/\(postId)"
+        let params = ["text": comment]
+        AF.request(url, method: .post, parameters: params)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                if let err = dataResp.error {
+                    completion(.failure(err))
+                }
+                completion(.success(1))
+            }
+    }
 }
