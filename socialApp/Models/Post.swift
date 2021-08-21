@@ -16,4 +16,5 @@ struct Post: Decodable {
     let numLikes: Int
     let user: User
     let fromNow: String
+    var canDelete:Bool
 }
