@@ -160,6 +160,26 @@ class Service: NSObject {
             }
     }
     
+    func fetchComments(postId: String, completion: @escaping(Result<[Comment], Error>) -> ()) {
+        let url = "\(Service.shared.baseUrl)/comment/\(postId)"
+        
+        AF.request(url, method: .get)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                if let err = dataResp.error {
+                    completion(.failure(err))
+                    return
+                }
+                
+                do {
+                    let comments = try JSONDecoder().decode([Comment].self, from: dataResp.data ?? Data())
+                    completion(.success(comments))
+                } catch let err {
+                    completion(.failure(err))
+                }
+            }
+    }
+    
     func submitComment(postId: String, comment: String, completion: @escaping(Result<Int, Error>) -> ()) {
         let url = "\(Service.shared.baseUrl)/comment/\(postId)"
         let params = ["text": comment]

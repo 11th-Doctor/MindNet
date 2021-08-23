@@ -36,6 +36,27 @@ class PostDetailsController: BaseCollectionController<CommentCell, Comment, Comm
         navigationItem.title = "留言"
         collectionView.keyboardDismissMode = .interactive
         collectionView.alwaysBounceVertical = true
+        
+        collectionView.refreshControl = UIRefreshControl()
+        collectionView.refreshControl?.addTarget(self, action: #selector(fetchComments), for: .valueChanged)
+        fetchComments()
+    }
+    
+    @objc fileprivate func fetchComments() {
+        Service.shared.fetchComments(postId: postId) { result in
+            self.collectionView.refreshControl?.beginRefreshing()
+            switch result {
+            case .failure(let err):
+                print("Failed to fetch comments: ", err)
+                break
+            case .success(let comments):
+                self.items = comments.map({ return CommentViewModel(model: $0) })
+                break
+            }
+            self.collectionView.refreshControl?.endRefreshing()
+            let indexPath = IndexPath(item: self.items.count - 1, section: 0)
+            self.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        }
     }
     
     @objc fileprivate func handleSubmittion() {
@@ -46,10 +67,13 @@ class PostDetailsController: BaseCollectionController<CommentCell, Comment, Comm
                     print("Failed to submit the comment", err)
                     break
                 case.success(_):
+                    self.fetchComments()
                     break
                 }
             }
         }
+        
+        customAccessoryView.textView.text = nil
     }
     
     required init?(coder: NSCoder) {
@@ -59,6 +83,12 @@ class PostDetailsController: BaseCollectionController<CommentCell, Comment, Comm
 
 extension PostDetailsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width, height: 60)
+        let dummyCell = CommentCell(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
+        let commentViewModel = items[indexPath.item]
+        dummyCell.item = commentViewModel
+        dummyCell.layoutIfNeeded()
+        let height = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 50)).height
+        
+        return CGSize(width: view.frame.width, height: height)
     }
 }
