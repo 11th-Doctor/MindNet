@@ -53,7 +53,7 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
     
     lazy var likeButton: UIButton = {
         let button = UIButton()
-        button.setImage(#imageLiteral(resourceName: "like-outline"), for: .normal)
+        button.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
         return button
     }()
     
@@ -66,9 +66,9 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
     
     lazy var numLikesButton: UIButton = {
         let button = UIButton()
-        button.setTitle("0 個喜歡", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15)
+        button.addTarget(self, action: #selector(handleNumLikes), for: .touchUpInside)
         return button
     }()
     
@@ -79,6 +79,9 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
             usernameLabel.text = item.fullName
             postImageView.sd_setImage(with: URL(string: item.imageUrl))
             textBodyLabel.text = item.text
+            
+            item.bindLikeButton(likeButton: likeButton)
+            item.bindNumLikesButton(numLikesButton: numLikesButton)
         }
     }
     
@@ -97,6 +100,16 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
     @objc func showOptions() {
         if let viewController = parentController {
             item.showOptions(viewController: viewController)
+        }
+    }
+    
+    @objc func handleLike() {
+        item.handleLike()
+    }
+    
+    @objc fileprivate func handleNumLikes() {
+        if let parentController = parentController {
+            item.fetchLikes(parentController: parentController)
         }
     }
     

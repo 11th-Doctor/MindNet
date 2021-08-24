@@ -13,6 +13,7 @@ struct Post: Decodable {
     let createdAt: String
     let updatedAt: String
     let imageUrl: String
+    var hasLiked: Bool?
     let numLikes: Int
     let user: User
     let fromNow: String

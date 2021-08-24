@@ -192,4 +192,34 @@ class Service: NSObject {
                 completion(.success(1))
             }
     }
+    
+    func likePost(postId: String, hasLiked: Bool, completion: @escaping(Result<Int, Error>) -> ()) {
+        let url = "\(Service.shared.baseUrl)/like/\(postId)/\(hasLiked ? "dislike" : "like")"
+        AF.request(url, method: .post)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                if let err = dataResp.error {
+                    completion(.failure(err))
+                    return
+                }
+                
+                completion(.success(1))
+            }
+    }
+    
+    func fetchLikes(postId: String, completion: @escaping(Result<[User], Error>) -> ()) {
+        let url = "\(Service.shared.baseUrl)/post/likes/\(postId)"
+        
+        AF.request(url, method: .get)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                do {
+                    
+                    let users = try JSONDecoder().decode([User].self, from: dataResp.data ?? Data())
+                    completion(.success(users))
+                } catch let err {
+                    completion(.failure(err))
+                }
+            }
+    }
 }
