@@ -109,6 +109,7 @@ class PostViewModel: ViewModel<Post> {
     
     func fetchLikes(parentController: UIViewController) {
         let likesController = LikesController(postId: id)
-        parentController.navigationController?.pushViewController(likesController, animated: true)
+        let navController = UINavigationController(rootViewController: likesController)
+        parentController.present(navController, animated: true)
     }
 }

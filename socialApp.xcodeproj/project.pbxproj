@@ -31,8 +31,6 @@
 		FB94CDAA2695E2F9006618E4 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94CDA92695E2F9006618E4 /* HomeController.swift */; };
 		FB94CDAD2695E73A006618E4 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94CDAC2695E73A006618E4 /* Service.swift */; };
 		FB981DF526D5398D0034D4CB /* LikesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB981DF426D5398D0034D4CB /* LikesController.swift */; };
-		FB981DF726D53AEB0034D4CB /* LikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB981DF626D53AEB0034D4CB /* LikeCell.swift */; };
-		FB981DF926D53B470034D4CB /* LikeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB981DF826D53B470034D4CB /* LikeViewModel.swift */; };
 		FBBF42D126A2EB8D00737EC7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF42D026A2EB8D00737EC7 /* User.swift */; };
 		FBBF42D326A30D6700737EC7 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF42D226A30D6700737EC7 /* RegisterController.swift */; };
 		FBBF42D626A3294400737EC7 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF42D526A3294400737EC7 /* ProfileController.swift */; };
@@ -98,8 +96,6 @@
 		FB94CDA92695E2F9006618E4 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		FB94CDAC2695E73A006618E4 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		FB981DF426D5398D0034D4CB /* LikesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesController.swift; sourceTree = "<group>"; };
-		FB981DF626D53AEB0034D4CB /* LikeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCell.swift; sourceTree = "<group>"; };
-		FB981DF826D53B470034D4CB /* LikeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeViewModel.swift; sourceTree = "<group>"; };
 		FBBF42D026A2EB8D00737EC7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FBBF42D226A30D6700737EC7 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
 		FBBF42D526A3294400737EC7 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
@@ -184,7 +180,6 @@
 				FB0196FA26C012C4006B06D9 /* UserViewModel.swift */,
 				FB882DE226CAAB28003D3EA2 /* UserHeaderViewModel.swift */,
 				FB83117326D0FA8600F7E5D0 /* CommentViewModel.swift */,
-				FB981DF826D53B470034D4CB /* LikeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -226,7 +221,6 @@
 				FB4243D426B591A000BBBCF0 /* UsersSearchCell.swift */,
 				FB83117126D0F9E800F7E5D0 /* CommentCell.swift */,
 				FB83117726D1010400F7E5D0 /* CustomAccessoryView.swift */,
-				FB981DF626D53AEB0034D4CB /* LikeCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -580,14 +574,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB94CDA52695DAE6006618E4 /* IndentedTextField.swift in Sources */,
-				FB981DF926D53B470034D4CB /* LikeViewModel.swift in Sources */,
 				FB0196FB26C012C4006B06D9 /* UserViewModel.swift in Sources */,
 				FBBF42DA26A338B900737EC7 /* ProfileHeader.swift in Sources */,
 				FBC825C9269C79AE0088927F /* CreatePostController.swift in Sources */,
 				FB94CDAD2695E73A006618E4 /* Service.swift in Sources */,
 				FBE5AA842691EE9100496967 /* LoginController.swift in Sources */,
 				FB83117426D0FA8600F7E5D0 /* CommentViewModel.swift in Sources */,
-				FB981DF726D53AEB0034D4CB /* LikeCell.swift in Sources */,
 				FB882DE126C976F1003D3EA2 /* BaseReusableView.swift in Sources */,
 				FB94CDAA2695E2F9006618E4 /* HomeController.swift in Sources */,
 				FB94CDA72695DF65006618E4 /* MainTabBarController.swift in Sources */,

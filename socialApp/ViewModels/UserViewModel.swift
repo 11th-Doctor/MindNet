@@ -56,6 +56,10 @@ class UserViewModel: ViewModel<User> {
         
         subscribers.append($isSubmitAllowed
                             .assign(to: \.isEnabled, on: followButton))
+        
+        if model.isCurrentUser == true {
+            followButton.removeFromSuperview()
+        }
     }
     
     func didFollowUser() {

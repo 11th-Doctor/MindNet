@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LikesController: BaseCollectionController<LikeCell, User, LikeViewModel> {
+class LikesController: BaseCollectionController<UsersSearchCell, User, UserViewModel> {
     
     let postId: String
     
@@ -29,7 +29,7 @@ class LikesController: BaseCollectionController<LikeCell, User, LikeViewModel> {
                 print("Failed to fetch likes", err)
                 break
             case .success(let users):
-                self.items = users.map({ return LikeViewModel(model: $0) })
+                self.items = users.map({ return UserViewModel(model: $0) })
                 break
             }
         }

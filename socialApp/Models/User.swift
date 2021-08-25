@@ -14,6 +14,7 @@ struct User: Decodable {
     let profileImageUrl: String?
     var posts: [Post]?
     var isFollowing: Bool?
+    var isCurrentUser: Bool?
     var following: Int?
     var followers: Int?
 }
