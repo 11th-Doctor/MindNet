@@ -10,13 +10,23 @@ import JGProgressHUD
 
 class HomeController: BaseCollectionController<PostCell, Post, PostViewModel> {
     
+    let headerId = "headerId"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
     
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath)
+        
+        return header
+    }
+    
     func setupViews() {
         view.backgroundColor = .white
+        
+        collectionView.register(HomeHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         
         navigationItem.leftBarButtonItem = .init(title: "登入", style: .done, target: self, action: #selector(handleLoginButton))
         navigationItem.rightBarButtonItem = .init(image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(searchUsers))
@@ -63,6 +73,11 @@ class HomeController: BaseCollectionController<PostCell, Post, PostViewModel> {
 }
 
 extension HomeController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 120)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = estimatedCellHeight(for: indexPath, cellWidth: view.frame.width)
         return CGSize(width: view.frame.width, height: height)
