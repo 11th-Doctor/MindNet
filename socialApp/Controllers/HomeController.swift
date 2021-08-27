@@ -11,22 +11,26 @@ import JGProgressHUD
 class HomeController: BaseCollectionController<PostCell, Post, PostViewModel> {
     
     let headerId = "headerId"
+    var allFollowing: [User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        
+        fetchPosts()
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath)
-        
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as! FollowingHeader
+        header.allFollowing = allFollowing
+        header.collectionView.reloadData()
         return header
     }
     
     func setupViews() {
         view.backgroundColor = .white
         
-        collectionView.register(HomeHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
+        collectionView.register(FollowingHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         
         navigationItem.leftBarButtonItem = .init(title: "登入", style: .done, target: self, action: #selector(handleLoginButton))
         navigationItem.rightBarButtonItem = .init(image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(searchUsers))
@@ -47,10 +51,25 @@ class HomeController: BaseCollectionController<PostCell, Post, PostViewModel> {
         present(navigationController, animated: true, completion: nil)
     }
     
+    fileprivate func fetchFollowing() {
+        Service.shared.fetchUsersBeingFollowing { result in
+            switch result {
+            case .failure(let err):
+                print("Failed to fetch following", err)
+                break
+            case.success(let allFollowing):
+                self.allFollowing = allFollowing
+                break
+            }
+        }
+    }
+    
     @objc func fetchPosts() {
         
         let hud = JGProgressHUD(style: .dark)
         hud.show(in: view)
+        
+        fetchFollowing()
         
         Service.shared.fetchPosts { result in
             switch result {

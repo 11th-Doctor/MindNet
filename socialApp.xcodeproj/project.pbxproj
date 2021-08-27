@@ -19,7 +19,7 @@
 		FB6D7CFE269DCE16006407B8 /* BaseCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D7CFD269DCE16006407B8 /* BaseCollectionController.swift */; };
 		FB6D7D01269DDF09006407B8 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D7D00269DDF09006407B8 /* PostCell.swift */; };
 		FB6D7D03269DE296006407B8 /* BaseCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D7D02269DE296006407B8 /* BaseCollectionCell.swift */; };
-		FB7AA0CA26D69F780064BEB8 /* HomeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7AA0C926D69F780064BEB8 /* HomeHeader.swift */; };
+		FB7AA0CA26D69F780064BEB8 /* FollowingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7AA0C926D69F780064BEB8 /* FollowingHeader.swift */; };
 		FB83117026D0F95600F7E5D0 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB83116F26D0F95600F7E5D0 /* Comment.swift */; };
 		FB83117226D0F9E800F7E5D0 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB83117126D0F9E800F7E5D0 /* CommentCell.swift */; };
 		FB83117426D0FA8600F7E5D0 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB83117326D0FA8600F7E5D0 /* CommentViewModel.swift */; };
@@ -32,6 +32,7 @@
 		FB94CDAA2695E2F9006618E4 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94CDA92695E2F9006618E4 /* HomeController.swift */; };
 		FB94CDAD2695E73A006618E4 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94CDAC2695E73A006618E4 /* Service.swift */; };
 		FB981DF526D5398D0034D4CB /* LikesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB981DF426D5398D0034D4CB /* LikesController.swift */; };
+		FBB76A9C26D9234A008A2A6E /* FollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB76A9B26D9234A008A2A6E /* FollowingCell.swift */; };
 		FBBF42D126A2EB8D00737EC7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF42D026A2EB8D00737EC7 /* User.swift */; };
 		FBBF42D326A30D6700737EC7 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF42D226A30D6700737EC7 /* RegisterController.swift */; };
 		FBBF42D626A3294400737EC7 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF42D526A3294400737EC7 /* ProfileController.swift */; };
@@ -85,7 +86,7 @@
 		FB6D7CFD269DCE16006407B8 /* BaseCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionController.swift; sourceTree = "<group>"; };
 		FB6D7D00269DDF09006407B8 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		FB6D7D02269DE296006407B8 /* BaseCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionCell.swift; sourceTree = "<group>"; };
-		FB7AA0C926D69F780064BEB8 /* HomeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeader.swift; sourceTree = "<group>"; };
+		FB7AA0C926D69F780064BEB8 /* FollowingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingHeader.swift; sourceTree = "<group>"; };
 		FB83116F26D0F95600F7E5D0 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		FB83117126D0F9E800F7E5D0 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		FB83117326D0FA8600F7E5D0 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
@@ -98,6 +99,7 @@
 		FB94CDA92695E2F9006618E4 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		FB94CDAC2695E73A006618E4 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		FB981DF426D5398D0034D4CB /* LikesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesController.swift; sourceTree = "<group>"; };
+		FBB76A9B26D9234A008A2A6E /* FollowingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingCell.swift; sourceTree = "<group>"; };
 		FBBF42D026A2EB8D00737EC7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FBBF42D226A30D6700737EC7 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
 		FBBF42D526A3294400737EC7 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
@@ -223,7 +225,8 @@
 				FB4243D426B591A000BBBCF0 /* UsersSearchCell.swift */,
 				FB83117126D0F9E800F7E5D0 /* CommentCell.swift */,
 				FB83117726D1010400F7E5D0 /* CustomAccessoryView.swift */,
-				FB7AA0C926D69F780064BEB8 /* HomeHeader.swift */,
+				FB7AA0C926D69F780064BEB8 /* FollowingHeader.swift */,
+				FBB76A9B26D9234A008A2A6E /* FollowingCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				FB94CDA52695DAE6006618E4 /* IndentedTextField.swift in Sources */,
 				FB0196FB26C012C4006B06D9 /* UserViewModel.swift in Sources */,
 				FBBF42DA26A338B900737EC7 /* ProfileHeader.swift in Sources */,
+				FBB76A9C26D9234A008A2A6E /* FollowingCell.swift in Sources */,
 				FBC825C9269C79AE0088927F /* CreatePostController.swift in Sources */,
 				FB94CDAD2695E73A006618E4 /* Service.swift in Sources */,
 				FBE5AA842691EE9100496967 /* LoginController.swift in Sources */,
@@ -596,7 +600,7 @@
 				FBFBB34C26A09516009A4155 /* CircularImageView.swift in Sources */,
 				FB6D7CFE269DCE16006407B8 /* BaseCollectionController.swift in Sources */,
 				FB4243D526B591A000BBBCF0 /* UsersSearchCell.swift in Sources */,
-				FB7AA0CA26D69F780064BEB8 /* HomeHeader.swift in Sources */,
+				FB7AA0CA26D69F780064BEB8 /* FollowingHeader.swift in Sources */,
 				FB4243D326B5912C00BBBCF0 /* UsersSearchController.swift in Sources */,
 				FBBF42D326A30D6700737EC7 /* RegisterController.swift in Sources */,
 				FB6D7D03269DE296006407B8 /* BaseCollectionCell.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeHeader: UICollectionReusableView {
+class FollowingHeader: UICollectionReusableView {
     
     let cellId = "cellId"
     
@@ -33,6 +33,8 @@ class HomeHeader: UICollectionReusableView {
         return view
     }()
     
+    var allFollowing: [User] = []
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -43,7 +45,7 @@ class HomeHeader: UICollectionReusableView {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(FollowingCell.self, forCellWithReuseIdentifier: cellId)
         
         backgroundColor = .white
         
@@ -53,7 +55,7 @@ class HomeHeader: UICollectionReusableView {
         
         titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 16, paddingLeft: 16, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
-        collectionView.anchor(top: titleLabel.bottomAnchor, left: titleLabel.leftAnchor, bottom: separatorView.topAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        collectionView.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: separatorView.topAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         separatorView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 1)
     }
@@ -63,11 +65,11 @@ class HomeHeader: UICollectionReusableView {
     }
 }
 
-extension HomeHeader: UICollectionViewDataSource {
+extension FollowingHeader: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        cell.backgroundColor = .red
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FollowingCell
+        cell.following = allFollowing[indexPath.item]
         return cell
     }
     
@@ -76,16 +78,21 @@ extension HomeHeader: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return allFollowing.count
     }
 }
 
-extension HomeHeader: UICollectionViewDelegateFlowLayout {
+extension FollowingHeader: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 50, height: 50)
+        let height = collectionView.frame.height
+        return CGSize(width: height, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.5
     }
 }
 
-extension HomeHeader: UICollectionViewDelegate {
+extension FollowingHeader: UICollectionViewDelegate {
     
 }

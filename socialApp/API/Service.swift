@@ -222,4 +222,23 @@ class Service: NSObject {
                 }
             }
     }
+    
+    func fetchUsersBeingFollowing(completion: @escaping(Result<[User],Error>) -> ()) {
+        let url = "\(Service.shared.baseUrl)/user/following"
+        AF.request(url, method: .get)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                if let err = dataResp.error {
+                    completion(.failure(err))
+                    return
+                }
+                
+                do {
+                    let allFollowing = try JSONDecoder().decode([User].self, from: dataResp.data ?? Data())
+                    completion(.success(allFollowing))
+                } catch let err {
+                    completion(.failure(err))
+                }
+            }
+    }
 }
