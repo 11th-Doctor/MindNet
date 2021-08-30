@@ -79,7 +79,7 @@ class LoginController: UIViewController {
     
     var formView: UIScrollView = {
         let view = UIScrollView(frame: .zero)
-        view.keyboardDismissMode = .interactive
+        view.keyboardDismissMode = .onDrag
         //TODO: - keyboard dismissing
         return view
     }()
@@ -88,8 +88,11 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+    
     @objc fileprivate func handleLogin() {
         let email = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
@@ -160,6 +163,25 @@ class LoginController: UIViewController {
         
         formView.addSubview(goToRegisterButton)
         goToRegisterButton.anchor(top: loginButton.bottomAnchor, left: fieldsStack.leftAnchor, bottom: nil, right: fieldsStack.rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
+    }
+    
+    @objc func handleShowKeyboard(notification: Notification) {
+        guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        let keyboardFrame = value.cgRectValue
+        
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
+        formView.contentInset = contentInsets
+        formView.scrollIndicatorInsets = contentInsets
+        
+        if (!formView.frame.contains(goToRegisterButton.frame.origin)) {
+            formView.scrollRectToVisible(goToRegisterButton.frame, animated: true)
+        }
+    }
+    
+    @objc func handleHideKeyboard() {
+        formView.contentInset.bottom = 0
+        formView.verticalScrollIndicatorInsets.bottom = 0
     }
     
     deinit {

@@ -81,7 +81,7 @@ class RegisterController: UIViewController {
     
     var formView: UIScrollView = {
         let view = UIScrollView(frame: .zero)
-        view.keyboardDismissMode = .interactive
+        view.keyboardDismissMode = .onDrag
         
         //TODO: - keybpard dismissing
         return view
@@ -91,6 +91,9 @@ class RegisterController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
+        
+//        NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(handleHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc fileprivate func handleRegister() {
@@ -165,5 +168,27 @@ class RegisterController: UIViewController {
         formView.addSubview(goToLoginButton)
         goToLoginButton.anchor(top: registerButton.bottomAnchor, left: fieldsStack.leftAnchor, bottom: nil, right: fieldsStack.rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
         
+    }
+    
+    @objc func handleShowKeyboard(notification: Notification) {
+        guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        let keyboardFrame = value.cgRectValue
+        
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.size.height, right: 0)
+        formView.contentInset = contentInsets
+        formView.scrollIndicatorInsets = contentInsets
+
+        var aRect = self.view.frame
+        aRect.size.height -= keyboardFrame.size.height
+
+        if (!aRect.contains(goToLoginButton.frame.origin)) {
+            formView.scrollRectToVisible(goToLoginButton.frame, animated: true)
+        }
+    }
+    
+    @objc func handleHideKeyboard() {
+        formView.contentInset = UIEdgeInsets.zero
+        formView.verticalScrollIndicatorInsets = UIEdgeInsets.zero
     }
 }

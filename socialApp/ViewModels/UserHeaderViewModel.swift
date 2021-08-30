@@ -11,6 +11,7 @@ import Combine
 class UserHeaderViewModel: ViewModel<User> {
     let userId: String
     let fullName: String
+    let bio: String?
     var profileImageUrl: URL?
     var isFollowing: Bool
     let following: Int
@@ -28,6 +29,7 @@ class UserHeaderViewModel: ViewModel<User> {
     required init(model: User, isEditable: Bool) {
         userId = model._id
         fullName = model.fullName
+        bio = model.bio
         profileImageUrl = URL(string: model.profileImageUrl ?? "")
         isFollowing = model.isFollowing ?? false
         following = model.following ?? 0

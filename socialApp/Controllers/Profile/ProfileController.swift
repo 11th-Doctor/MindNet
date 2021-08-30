@@ -64,8 +64,8 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, PostView
     }
     
     fileprivate func uploadUserProfileImage(profileImage: UIImage) {
-        if let user = headerItem?.model {
-            Service.shared.updateProfile(user: user, avatar: profileImage) { result in
+        if let viewModel = headerItem {
+            Service.shared.updateProfile(viewModel: viewModel, avatar: profileImage) { result in
                 switch result {
                 case .failure(let err):
                     print(err)

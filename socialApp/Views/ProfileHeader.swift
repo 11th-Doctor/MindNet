@@ -132,7 +132,9 @@ class ProfileHeader: BaseReusableView<User, UserHeaderViewModel> {
     }
     
     @objc func editProfile() {
-        item.editProfile()
+        let editProfileController = EditProfileController(viewModel: item)
+        let navController = UINavigationController(rootViewController: editProfileController)
+        profileController?.present(navController, animated: true)
     }
     
     @objc func followUser() {

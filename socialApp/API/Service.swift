@@ -91,11 +91,12 @@ class Service: NSObject {
             }
     }
     
-    func updateProfile(user: User, avatar: UIImage?, completion: @escaping(Result<Int,Error>) ->()) {
+    func updateProfile(viewModel: UserHeaderViewModel, avatar: UIImage?, completion: @escaping(Result<Int,Error>) ->()) {
         let url = "\(Service.shared.baseUrl)/user/profile"
         
         AF.upload(multipartFormData: { formData in
-            formData.append(Data(user.fullName.utf8), withName: "fullName")
+            formData.append(Data(viewModel.fullName.utf8), withName: "fullName")
+            formData.append(Data((viewModel.bio ?? "").utf8), withName: "bio")
             
             if let imagefile = avatar?.jpegData(compressionQuality: 0.5) {
                 formData.append(imagefile, withName: "imagefile", fileName: "", mimeType: "image/jpg")
