@@ -15,15 +15,25 @@ class HomeController: BaseCollectionController<PostCell, Post, PostViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupViews()
         
+        if UserDefaults.standard.string(forKey: "userId") == nil {
+            let loginController = LoginController()
+            loginController.isModalInPresentation = true
+            let navController = UINavigationController(rootViewController: loginController)
+            present(navController, animated: true, completion: nil)
+            
+            return
+        }
+        
         fetchPosts()
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as! FollowingHeader
-        header.allFollowing = allFollowing
-        header.collectionView.reloadData()
+        header.viewModel.fetchFollowing()
         return header
     }
     
@@ -51,25 +61,12 @@ class HomeController: BaseCollectionController<PostCell, Post, PostViewModel> {
         present(navigationController, animated: true, completion: nil)
     }
     
-    fileprivate func fetchFollowing() {
-        Service.shared.fetchUsersBeingFollowing { result in
-            switch result {
-            case .failure(let err):
-                print("Failed to fetch following", err)
-                break
-            case.success(let allFollowing):
-                self.allFollowing = allFollowing
-                break
-            }
-        }
-    }
+    
     
     @objc func fetchPosts() {
         
         let hud = JGProgressHUD(style: .dark)
         hud.show(in: view)
-        
-        fetchFollowing()
         
         Service.shared.fetchPosts { result in
             switch result {

@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class EditProfileController: UIViewController {
     
     let viewModel: UserHeaderViewModel
+    
+    var updatedAvatar: UIImage?
     
     lazy var profileImageView: CircularImageView = {
         let view = CircularImageView(width: 80)
@@ -50,6 +53,7 @@ class EditProfileController: UIViewController {
     init(viewModel: UserHeaderViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.profileImageView.sd_setImage(with: viewModel.profileImageUrl)
     }
     
     override func viewDidLoad() {
@@ -58,15 +62,30 @@ class EditProfileController: UIViewController {
     }
     
     fileprivate func uploadUserProfileImage(profileImage: UIImage?) {
+        editProfileButton.isEnabled = false
+        viewModel.fullName = fullNameTextField.text ?? viewModel.fullName
+        viewModel.bio = bioTextView.text
+        
+        let hud = JGProgressHUD(style: .dark)
+        hud.show(in: view)
+        
         Service.shared.updateProfile(viewModel: viewModel, avatar: profileImage) { result in
             switch result {
             case .failure(let err):
                 print(err)
                 break
             case .success(_):
-//                    self.fetchUserProfile()
+                if let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController {
+
+                    mainTabBarController.refreshPosts()
+                    
+                    self.dismiss(animated: true, completion: nil)
+                }
                 break
             }
+            
+            self.editProfileButton.isEnabled = true
+            hud.dismiss(animated: true)
         }
     }
     
@@ -116,6 +135,7 @@ extension EditProfileController: UIImagePickerControllerDelegate, UINavigationCo
         
         if let image = info[.editedImage] as? UIImage {
             dismiss(animated: true) {
+                self.updatedAvatar = image
                 self.profileImageView.image = image
             }
         }

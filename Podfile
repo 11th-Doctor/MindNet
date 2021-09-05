@@ -6,6 +6,12 @@ target 'socialApp' do
   use_frameworks!
 
   # Pods for socialApp
+    pod 'Alamofire', '~> 5.4'
+    pod 'JGProgressHUD'
+    pod 'SDWebImage'
+    pod 'RxSwift', '6.2.0'
+    pod 'RxCocoa', '6.2.0'
+  end
 
   target 'socialAppTests' do
     inherit! :search_paths
@@ -16,8 +22,3 @@ target 'socialApp' do
     # Pods for testing
   end
 
-pod 'Alamofire', '~> 5.4'
-pod 'JGProgressHUD'
-pod 'SDWebImage'
-
-end

@@ -111,6 +111,7 @@ class ProfileHeader: BaseReusableView<User, UserHeaderViewModel> {
     override var item: UserHeaderViewModel! {
         didSet {
             fullNameLabel.text = item.fullName
+            bioLabel.text = item.bio
             profileImageView.sd_setImage(with: item.profileImageUrl)
             followingCountLabel.text = "\(item.following)"
             followersCountLabel.text = "\(item.followers)"

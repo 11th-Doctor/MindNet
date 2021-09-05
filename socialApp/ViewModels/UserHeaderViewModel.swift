@@ -10,8 +10,8 @@ import Combine
 
 class UserHeaderViewModel: ViewModel<User> {
     let userId: String
-    let fullName: String
-    let bio: String?
+    var fullName: String
+    var bio: String?
     var profileImageUrl: URL?
     var isFollowing: Bool
     let following: Int
@@ -65,6 +65,7 @@ class UserHeaderViewModel: ViewModel<User> {
                             .sink(receiveValue: { followButton.setTitleColor($0, for: .normal)}))
         
         subscribers.append($isSubmitAllowed
+                            .receive(on: RunLoop.main)
                             .assign(to: \.isEnabled, on: followButton))
         
         if isEditable {
@@ -103,8 +104,25 @@ class UserHeaderViewModel: ViewModel<User> {
         }
     }
     
-    func editProfile() {
-        print("Editting profile...")
+    func editProfile(profileImage: UIImage?) {
+
+        Service.shared.updateProfile(viewModel: self, avatar: profileImage) { result in
+            switch result {
+            case .failure(let err):
+                print(err)
+                break
+            case .success(_):
+                if let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController {
+
+                    if let profileImageData = profileImage?.jpegData(compressionQuality: 0.5) {
+                        self.profileImageUrl = URL(dataRepresentation: profileImageData, relativeTo: nil)
+                    }
+
+                    mainTabBarController.refreshPosts()
+                }
+                break
+            }
+        }
     }
     
     required init(model: User) {

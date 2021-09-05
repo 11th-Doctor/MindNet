@@ -18,7 +18,7 @@ class LoginController: UIViewController {
     
     let logoLabel: UILabel = {
         let label = UILabel()
-        label.text = "FullStack Social"
+        label.text = "社群 Social"
         label.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
         label.textColor = .black
         label.textAlignment = .natural

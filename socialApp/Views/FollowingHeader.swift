@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class FollowingHeader: UICollectionReusableView {
     
@@ -33,17 +35,37 @@ class FollowingHeader: UICollectionReusableView {
         return view
     }()
     
-    var allFollowing: [User] = []
+    var viewModel = FollowingViewModel()
+    
+    fileprivate var bag = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        bindCollectionData()
+    }
+    
+    func bindCollectionData() {
+        // Bind items to collection view
+        viewModel.items.bind(to: collectionView.rx.items(cellIdentifier: cellId, cellType: FollowingCell.self))
+        { _, model, cell in
+            cell.profileImageView.sd_setImage(with: URL(string: model.profileImageUrl ?? ""))
+            cell.usernameLabel.text = model.fullName
+        }.disposed(by: bag)
+        
+        // Bind a model selected handler
+        collectionView.rx.modelSelected(User.self)
+            .bind { user in
+            print(user.fullName)
+        }.disposed(by: bag)
+        
+        //fetch items
+        viewModel.fetchFollowing()
     }
     
     fileprivate func setupViews() {
         
         collectionView.delegate = self
-        collectionView.dataSource = self
         
         collectionView.register(FollowingCell.self, forCellWithReuseIdentifier: cellId)
         
@@ -65,29 +87,12 @@ class FollowingHeader: UICollectionReusableView {
     }
 }
 
-extension FollowingHeader: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FollowingCell
-        cell.following = allFollowing[indexPath.item]
-        return cell
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allFollowing.count
-    }
-}
-
 extension FollowingHeader: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = collectionView.frame.height
         return CGSize(width: height, height: height)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0.5
     }
