@@ -18,10 +18,11 @@ class HomeController: BaseCollectionController<PostCell, Post, PostViewModel> {
         
         setupViews()
         
-        if UserDefaults.standard.string(forKey: "userId") == nil {
+        if UserDefaults.standard.string(forKey: "email") == nil {
             let loginController = LoginController()
             loginController.isModalInPresentation = true
             let navController = UINavigationController(rootViewController: loginController)
+            navController.modalPresentationStyle = .fullScreen
             present(navController, animated: true, completion: nil)
             
             return

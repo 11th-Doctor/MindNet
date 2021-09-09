@@ -14,6 +14,7 @@ class CreatePostController: UIViewController {
     
     let imageView: UIImageView = {
         let view = UIImageView()
+        view.clipsToBounds = true
         view.contentMode = .scaleAspectFill
         return view
     }()

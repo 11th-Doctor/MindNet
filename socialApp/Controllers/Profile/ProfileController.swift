@@ -22,7 +22,6 @@ class ProfileController: BaseHeaderCollectionController<PostCell, Post, PostView
         navigationItem.title = "個人資料"
         fetchUserProfile()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "fetch", style: .done, target: self, action: #selector(fetchUserProfile))
         collectionView.refreshControl = UIRefreshControl()
         collectionView.refreshControl?.addTarget(self, action: #selector(fetchUserProfile), for: .valueChanged)
     }

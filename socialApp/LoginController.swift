@@ -32,6 +32,7 @@ class LoginController: UIViewController {
         textField.layer.cornerRadius = 25
         textField.keyboardType = .emailAddress
         textField.backgroundColor = .white
+        textField.tag = 0
         return textField
     }()
     
@@ -42,6 +43,7 @@ class LoginController: UIViewController {
         textField.keyboardType = .emailAddress
         textField.isSecureTextEntry = true
         textField.backgroundColor = .white
+        textField.tag = 1
         return textField
     }()
     
@@ -77,9 +79,12 @@ class LoginController: UIViewController {
         return button
     }()
     
-    var formView: UIScrollView = {
+    lazy var formView: UIScrollView = {
         let view = UIScrollView(frame: .zero)
-        view.keyboardDismissMode = .onDrag
+        view.keyboardDismissMode = .interactive
+        view.bounces = false
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapping)))
         //TODO: - keyboard dismissing
         return view
     }()
@@ -90,7 +95,15 @@ class LoginController: UIViewController {
         setupViews()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+    }
+    
+    @objc fileprivate func handleTapping() {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
     }
     
     @objc fileprivate func handleLogin() {
@@ -107,7 +120,12 @@ class LoginController: UIViewController {
                 self.errorLabel.isHidden = false
                 break
             case.success(_):
-                self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true) {
+                    if let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController {
+                        mainTabBarController.refreshPosts()
+                        UserDefaults.standard.setValue(email, forKey: "email")
+                    }
+                }
                 break
             }
 
@@ -127,12 +145,12 @@ class LoginController: UIViewController {
         view.backgroundColor = .init(white: 0.95, alpha: 1)
         
         view.addSubview(formView)
-        
         formView.addSubview(logoImageView)
         formView.addSubview(logoLabel)
         formView.addSubview(errorLabel)
         
-        formView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        formView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor,
+                        paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         let logoStack = UIStackView(arrangedSubviews: [logoImageView,logoLabel])
         formView.addSubview(logoStack)
@@ -165,6 +183,8 @@ class LoginController: UIViewController {
         goToRegisterButton.anchor(top: loginButton.bottomAnchor, left: fieldsStack.leftAnchor, bottom: nil, right: fieldsStack.rightAnchor, paddingTop: 16, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
     }
     
+    
+    
     @objc func handleShowKeyboard(notification: Notification) {
         guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         
@@ -189,3 +209,13 @@ class LoginController: UIViewController {
     }
 }
 
+extension LoginController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextTextField = self.view.viewWithTag(textField.tag + 1) {
+            nextTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return false
+    }
+}

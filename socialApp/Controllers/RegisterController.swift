@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RegisterController: UIViewController {
+class RegisterController: UIViewController, UITextFieldDelegate {
     
     let scrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -82,18 +82,21 @@ class RegisterController: UIViewController {
     var formView: UIScrollView = {
         let view = UIScrollView(frame: .zero)
         view.keyboardDismissMode = .onDrag
-        
-        //TODO: - keybpard dismissing
+        view.showsVerticalScrollIndicator = false
+        view.bounces = false
         return view
     }()
     
+    var activeField: UITextField?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(handleHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        fullnameTextField.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc fileprivate func handleRegister() {
@@ -170,9 +173,18 @@ class RegisterController: UIViewController {
         
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeField = textField
+        print("invoked")
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        activeField = nil
+    }
+    
     @objc func handleShowKeyboard(notification: Notification) {
         guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        
+        guard let activeField = activeField else { return }
         let keyboardFrame = value.cgRectValue
         
         let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.size.height, right: 0)
@@ -182,9 +194,10 @@ class RegisterController: UIViewController {
         var aRect = self.view.frame
         aRect.size.height -= keyboardFrame.size.height
 
-        if (!aRect.contains(goToLoginButton.frame.origin)) {
-            formView.scrollRectToVisible(goToLoginButton.frame, animated: true)
+        if !aRect.contains(activeField.frame.origin) {
+            formView.scrollRectToVisible(activeField.frame, animated: true)
         }
+
     }
     
     @objc func handleHideKeyboard() {
