@@ -20,6 +20,7 @@ class PostViewModel: ViewModel<Post> {
     @Published var likeButtonImage: UIImage
     @Published var numLikes: Int
     let canDelete: Bool
+    @Published var isSensitive: Bool
     
     private var subscribers: [AnyCancellable?] = []
     
@@ -31,6 +32,7 @@ class PostViewModel: ViewModel<Post> {
         text = model.text
         imageUrl = model.imageUrl
         canDelete = model.canDelete
+        isSensitive = model.isSensitive ?? true
         hasLiked = model.hasLiked ?? false
         numLikes = model.numLikes
         
@@ -58,6 +60,22 @@ class PostViewModel: ViewModel<Post> {
                             .sink(receiveValue: { numLikesButton.setTitle($0, for: .normal)}))
     }
     
+    func bindPostCell(postcell: PostCell) {
+        subscribers.append($isSensitive
+                            .receive(on: RunLoop.main)
+                            .sink(receiveValue: {
+                                if $0 {
+                                    postcell.setupVisualEffectBlur()
+                                } else {
+                                    postcell.blurVisualEffectView.removeFromSuperview()
+                                }
+                            }))
+    }
+    
+    func showSensitiveContent() {
+        isSensitive = false
+    }
+    
     func showOptions(viewController: UIViewController) {
         let alertController = UIAlertController(title: "選單", message: nil, preferredStyle: .actionSheet)
         
@@ -76,7 +94,21 @@ class PostViewModel: ViewModel<Post> {
                 }
             })
         } else {
-            print("cannot be deleted.")
+            alertController.addAction(.init(title: "檢舉", style: .destructive, handler: { [unowned self] _ in
+                Service.shared.reportPost(postId: self.id) { result in
+                    switch result {
+                    case .failure(let err):
+                        print("Failed to show sensitive content", err)
+                        return
+                    case .success(_):
+                        break
+                    }
+                }
+            }))
+            
+            alertController.addAction(.init(title: "不要再顯示這則內容給我", style: .default, handler: { _ in
+                print("不要再顯示這則內容給我")
+            }))
         }
         
         alertController.addAction(.init(title: "取消", style: .cancel, handler: nil))

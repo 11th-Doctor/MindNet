@@ -14,6 +14,7 @@ struct Post: Decodable {
     let updatedAt: String
     let imageUrl: String
     var hasLiked: Bool?
+    var isSensitive: Bool?
     let numLikes: Int
     let user: User
     let fromNow: String

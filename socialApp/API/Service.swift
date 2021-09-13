@@ -11,7 +11,8 @@ class Service: NSObject {
     
     static let shared = Service()
     
-    let baseUrl = "https://social-app-daryl.herokuapp.com"
+//    let baseUrl = "https://social-app-daryl.herokuapp.com"
+    let baseUrl = "http://localhost:5000"
     
     func login(email: String, password: String, completion: @escaping(Result<Data,AFError>) -> ()) {
         let url = "\(baseUrl)/user/login"
@@ -240,6 +241,20 @@ class Service: NSObject {
                 } catch let err {
                     completion(.failure(err))
                 }
+            }
+    }
+    
+    func reportPost(postId: String, completion: @escaping(Result<Int,Error>) -> ()) {
+        let url = "\(Service.shared.baseUrl)/report/\(postId)"
+        AF.request(url, method: .post)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                if let err = dataResp.error {
+                    completion(.failure(err))
+                    return
+                }
+                
+                completion(.success(1))
             }
     }
 }
