@@ -244,8 +244,8 @@ class Service: NSObject {
             }
     }
     
-    func reportPost(postId: String, completion: @escaping(Result<Int,Error>) -> ()) {
-        let url = "\(Service.shared.baseUrl)/report/\(postId)"
+    func reportPost(postId: String, postOnwerId: String, completion: @escaping(Result<Int,Error>) -> ()) {
+        let url = "\(Service.shared.baseUrl)/report/\(postId)/\(postOnwerId)"
         AF.request(url, method: .post)
             .validate(statusCode: 200..<300)
             .response { dataResp in

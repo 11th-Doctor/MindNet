@@ -38,7 +38,27 @@ class UsersSearchCell: BaseCollectionCell<User, UserViewModel> {
         didSet {
             profileImageView.sd_setImage(with: URL(string: item.profileImageUrl))
             usernameLabel.text = item.fullName
-            item.bindFollowButton(followButton: followButton)
+
+            item.followButtonTitleSubscriber = item.$followButtonTitle
+                .receive(on: RunLoop.main)
+                .sink(receiveValue: { self.followButton.setTitle($0, for: .normal)})
+            
+            item.followButtonBackgroundColourSubscriber = item.$followButtonBackgroundColour
+                .receive(on: RunLoop.main)
+                .map({ return $0 })
+                .assign(to: \.backgroundColor, on: followButton)
+            
+            item.followButtonTitleColourSubscriber = item.$followButtonTitleColour
+                .receive(on: RunLoop.main)
+                .sink(receiveValue: { self.followButton.setTitleColor($0, for: .normal) })
+            
+            item.isSubmitAllowedSubsriber = item.$isSubmitAllowed
+                .receive(on: RunLoop.main)
+                .assign(to: \.isEnabled, on: followButton)
+            
+            item.isCurrentUserSubscriber = item.$isCurrentUser
+                .receive(on: RunLoop.main)
+                .assign(to: \.isHidden, on: followButton)
         }
     }
     

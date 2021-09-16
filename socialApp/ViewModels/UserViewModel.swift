@@ -14,18 +14,27 @@ class UserViewModel: ViewModel<User> {
     let fullName: String
     let profileImageUrl: String
     var isFollowing: Bool
-    @Published var followButtonTitle: String
-    @Published var followButtonTitleColour: UIColor
-    @Published var followButtonBackgroundColour: UIColor
+    @Published var followButtonTitle: String = ""
+    @Published var followButtonTitleColour: UIColor = .black
+    @Published var followButtonBackgroundColour: UIColor = .white
     @Published var isSubmitAllowed: Bool = true
+    @Published var isCurrentUser: Bool = true
     
-    private var subscribers: [AnyCancellable?] = []
+    
+    var followButtonTitleSubscriber: AnyCancellable?
+    var followButtonTitleColourSubscriber: AnyCancellable?
+    var followButtonBackgroundColourSubscriber: AnyCancellable?
+    var isSubmitAllowedSubsriber: AnyCancellable?
+    var isCurrentUserSubscriber: AnyCancellable?
     
     required init(model: User) {
         userIdToFollow = model._id
         fullName = model.fullName
         profileImageUrl = model.profileImageUrl ?? ""
         isFollowing = model.isFollowing ?? false
+        isCurrentUser = model.isCurrentUser ?? false
+        
+        super.init(model: model)
         
         if isFollowing == true {
             followButtonTitleColour = .white
@@ -37,29 +46,6 @@ class UserViewModel: ViewModel<User> {
             followButtonTitle = "追蹤"
         }
         
-        super.init(model: model)
-    }
-    
-    func bindFollowButton(followButton: UIButton) {
-        subscribers.append($followButtonTitle
-                            .receive(on: RunLoop.main)
-                            .sink(receiveValue: { followButton.setTitle($0, for: .normal) }))
-
-        subscribers.append($followButtonBackgroundColour
-                            .receive(on: RunLoop.main)
-                            .map({ return $0 })
-                            .assign(to: \.backgroundColor, on: followButton))
-
-        subscribers.append($followButtonTitleColour
-                            .receive(on: RunLoop.main)
-                            .sink(receiveValue: { followButton.setTitleColor($0, for: .normal)}))
-        
-        subscribers.append($isSubmitAllowed
-                            .assign(to: \.isEnabled, on: followButton))
-        
-        if model.isCurrentUser == true {
-            followButton.removeFromSuperview()
-        }
     }
     
     func didFollowUser() {

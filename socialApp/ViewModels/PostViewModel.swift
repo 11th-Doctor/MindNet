@@ -94,20 +94,19 @@ class PostViewModel: ViewModel<Post> {
                 }
             })
         } else {
-            alertController.addAction(.init(title: "檢舉", style: .destructive, handler: { [unowned self] _ in
-                Service.shared.reportPost(postId: self.id) { result in
+            alertController.addAction(.init(title: "檢舉這則貼文", style: .destructive, handler: { [unowned self] _ in
+                Service.shared.reportPost(postId: self.id, postOnwerId: self.model.user._id) { result in
                     switch result {
                     case .failure(let err):
                         print("Failed to show sensitive content", err)
                         return
                     case .success(_):
+                        if let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController {
+                            mainTabBarController.refreshPosts()
+                        }
                         break
                     }
                 }
-            }))
-            
-            alertController.addAction(.init(title: "不要再顯示這則內容給我", style: .default, handler: { _ in
-                print("不要再顯示這則內容給我")
             }))
         }
         
