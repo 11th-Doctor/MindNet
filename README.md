@@ -14,7 +14,7 @@ This is a basic social networking app built with MVVM pattern, which is implemen
 ### Features
 * Uploading images
 * Liks persistence
-* Following uses
+* Following users
 * Filtering inappropriate content
 
 ### Technologies
