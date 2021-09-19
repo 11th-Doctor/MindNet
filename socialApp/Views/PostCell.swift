@@ -10,9 +10,11 @@ import SDWebImage
 
 class PostCell: BaseCollectionCell<Post, PostViewModel> {
     
-    let profileImageView: CircularImageView = {
+    lazy var profileImageView: CircularImageView = {
         let view = CircularImageView(width: 44, image: nil)
         view.layer.borderWidth = 0.5
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleProfileImage)))
         return view
     }()
     
@@ -133,7 +135,12 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
         imageHeightAnchor.constant = frame.width
     }
     
-    @objc func showOptions() {
+    @objc fileprivate func handleProfileImage() {
+        let profileController = ProfileController(userId: item.model.user._id)
+        parentController?.navigationController?.pushViewController(profileController, animated: true)
+    }
+    
+    @objc fileprivate func showOptions() {
         if let viewController = parentController {
             item.showOptions(viewController: viewController)
         }

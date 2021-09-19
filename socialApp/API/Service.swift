@@ -11,8 +11,7 @@ class Service: NSObject {
     
     static let shared = Service()
     
-//    let baseUrl = "https://social-app-daryl.herokuapp.com"
-    let baseUrl = "http://localhost:5000"
+    let baseUrl = "https://social-app-daryl.herokuapp.com"
     
     func login(email: String, password: String, completion: @escaping(Result<Data,AFError>) -> ()) {
         let url = "\(baseUrl)/user/login"
@@ -245,8 +244,53 @@ class Service: NSObject {
     }
     
     func reportPost(postId: String, postOnwerId: String, completion: @escaping(Result<Int,Error>) -> ()) {
-        let url = "\(Service.shared.baseUrl)/report/\(postId)/\(postOnwerId)"
+        let url = "\(Service.shared.baseUrl)/report/post/\(postId)/owner/\(postOnwerId)"
         AF.request(url, method: .post)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                if let err = dataResp.error {
+                    completion(.failure(err))
+                    return
+                }
+                
+                completion(.success(1))
+            }
+    }
+    
+    func reportUser(userId: String, completion: @escaping(Result<Int, Error>) -> Void) {
+        let url = "\(Service.shared.baseUrl)/report/user/\(userId)"
+        
+        AF.request(url, method: .post)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                if let err = dataResp.error {
+                    completion(.failure(err))
+                    return
+                }
+                
+                completion(.success(1))
+            }
+    }
+    
+    func blockUser(userId: String, completion: @escaping(Result<Int, Error>)-> Void) {
+        let url = "\(Service.shared.baseUrl)/report/block/\(userId)"
+        
+        AF.request(url, method: .post)
+            .validate(statusCode: 200..<300)
+            .response { dataResp in
+                if let err = dataResp.error {
+                    completion(.failure(err))
+                    return
+                }
+                
+                completion(.success(1))
+            }
+    }
+    
+    func reportIssues(params: [String : String], completion: @escaping(Result<Int, Error>)-> Void) {
+        let url = "\(Service.shared.baseUrl)/report/issue"
+        
+        AF.request(url, method: .post, parameters: params)
             .validate(statusCode: 200..<300)
             .response { dataResp in
                 if let err = dataResp.error {

@@ -107,6 +107,17 @@ class LoginController: UIViewController {
     }
     
     @objc fileprivate func handleLogin() {
+        
+        handleTapping()
+        
+        if UserDefaults.standard.string(forKey: "eula") == nil {
+            let termsController = TermsController()
+            let navController = UINavigationController(rootViewController: termsController)
+            present(navController, animated: true, completion: nil)
+            
+            return
+        }
+        
         let email = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         
