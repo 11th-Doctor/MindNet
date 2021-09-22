@@ -23,7 +23,7 @@ This is a basic social networking app built with MVVM pattern, which is implemen
 
 ### [Combine Framework](https://developer.apple.com/documentation/combine)
 
-```
+```swift
     import Combine
     
     @Published var followButtonTitle: String = ""
@@ -57,7 +57,7 @@ This is a basic social networking app built with MVVM pattern, which is implemen
 
 ### [RxSwift](https://github.com/ReactiveX/RxSwift)
 
-```
+```swift
     import RxSwift
     import RxCocoa
     
