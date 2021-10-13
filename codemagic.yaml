@@ -3,7 +3,7 @@ workflows:
     name: MindNet Pipeline
     scripts:
       - name: CICD Started
-      script: echo "CI/CD set up for MindNet"
+        script: echo "CI/CD set up for MindNet"
     publishing:
       email:
         recipients:
