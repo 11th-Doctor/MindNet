@@ -1,0 +1,5 @@
+workflows:
+  MindNet:
+    name: MindNet workflow
+    scripts:
+        - echo "CI/CD set up for MindNet"
