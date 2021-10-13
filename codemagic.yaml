@@ -4,6 +4,8 @@ workflows:
     scripts:
       - name: CICD Started
         script: echo "CI/CD set up for MindNet"
+      - name: Build MindNet
+        script: - xcodebuild build -workspace "MyXcodeWorkspace.xcworkspace" -scheme "MyScheme" CODE_SIGN_INDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
     publishing:
       email:
         recipients:
