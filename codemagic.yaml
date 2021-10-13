@@ -1,5 +1,11 @@
 workflows:
-  MindNet:
-    name: MindNet workflow
+  MindNet-workflow:
+    name: MindNet Pipeline
     scripts:
-        - echo "CI/CD set up for MindNet"
+      - name: CICD Started
+      script: echo "CI/CD set up for MindNet"
+    publishing:
+      email:
+        recipients:
+          - august9382@icloud.com
+
