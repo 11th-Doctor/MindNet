@@ -6,6 +6,12 @@ workflows:
         script: echo "CI/CD set up for MindNet"
       - name: Build MindNet
         script: xcodebuild build -workspace "socialApp.xcworkspace" -scheme "socialApp" CODE_SIGN_INDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+      - name: iOS test
+        script: |
+          xcode-project run-tests \
+              --workspace socialApp.xcworkspace \
+              --scheme socialApp
+        test_report: build/ios/test/*.xml
     publishing:
       email:
         recipients:
