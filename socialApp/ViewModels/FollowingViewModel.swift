@@ -10,6 +10,7 @@ import RxCocoa
 
 struct FollowingViewModel {
     var items = PublishSubject<[User]>()
+    var parentViewController: UIViewController?
     
     func fetchFollowing() {
         Service.shared.fetchUsersBeingFollowing { result in
@@ -23,5 +24,10 @@ struct FollowingViewModel {
                 break
             }
         }
+    }
+    
+    func didSelectItem(withId id: String) {
+        let profileViewController = ProfileController(userId: id)
+        self.parentViewController?.navigationController?.pushViewController(profileViewController, animated: true)
     }
 }

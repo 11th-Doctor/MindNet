@@ -35,6 +35,7 @@ class HomeController: BaseCollectionController<PostCell, Post, PostViewModel> {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as! FollowingHeader
         header.viewModel.fetchFollowing()
+        header.viewModel.parentViewController = self
         return header
     }
     

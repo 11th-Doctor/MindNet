@@ -35,6 +35,8 @@ class FollowingHeader: UICollectionReusableView {
         return view
     }()
     
+    var parentViewController: UIViewController?
+    
     var viewModel = FollowingViewModel()
     
     fileprivate var bag = DisposeBag()
@@ -56,7 +58,7 @@ class FollowingHeader: UICollectionReusableView {
         // Bind a model selected handler
         collectionView.rx.modelSelected(User.self)
             .bind { user in
-            print(user.fullName)
+                self.viewModel.didSelectItem(withId: user._id)
         }.disposed(by: bag)
         
         //fetch items
