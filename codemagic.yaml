@@ -9,9 +9,9 @@ workflows:
         XCODE_SCHEME: "socialApp"
       xcode: latest
       cocoapods: default
-      triggering:
-        events:
-          - push
+    triggering:
+      events:
+        - push
       branch_patterns:
         - pattern: master
           include: true
