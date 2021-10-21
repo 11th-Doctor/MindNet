@@ -46,9 +46,11 @@ workflows:
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:
       app_store_connect:
-        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
-        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
-        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        # api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        # key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        # issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        apple_id: $APP_STORE_CONNECT_APP_ID
+        password: $APP_STORE_CONNECT_PASSWORD
         submit_to_testflight: false
       email:
         recipients:
