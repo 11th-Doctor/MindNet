@@ -12,19 +12,23 @@ workflows:
     triggering:
       events:
         - push
+        - pull_request
       branch_patterns:
         - pattern: master
           include: true
           source: true
+        - pattern: excluded-target
+          include: false
+          source: false
     scripts:
       - name: CICD Started
         script: echo "CI/CD set up for MindNet"
-      # - name: iOS test
-      #   script: |
-      #     xcode-project run-tests \
-      #         --workspace $XCODE_WORKSPACE \
-      #         --scheme $XCODE_SCHEME
-      #   test_report: build/ios/test/*.xml
+      - name: iOS test
+        script: |
+          xcode-project run-tests \
+              --workspace $XCODE_WORKSPACE \
+              --scheme $XCODE_SCHEME
+        test_report: build/ios/test/*.xml
       - name: Set up keychain to be used for code signing using Codemagic CLI 'keychain' command
         script: keychain initialize
       - name: Fetch signing files
@@ -54,8 +58,6 @@ workflows:
         api_key: $APP_STORE_CONNECT_PRIVATE_KEY
         key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
         issuer_id: $APP_STORE_CONNECT_ISSUER_ID
-        # apple_id: $APP_STORE_CONNECT_APP_ID
-        # password: $APP_STORE_CONNECT_PASSWORD
         submit_to_testflight: false
       email:
         recipients:
