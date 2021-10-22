@@ -97,8 +97,11 @@ This is a basic social networking app built with MVVM pattern, which is implemen
     //fetch items
     viewModel.fetchFollowing()
 ```
-
+* [CI/CD: Codemagic](https://codemagic.io/start/)
 * Unit test
+
+<img src="https://social-app-daryl.herokuapp.com/static/images/cicd.png"> |
+|-|
 * Programmatic UI
 
 ### Third party dependencies
