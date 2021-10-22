@@ -35,7 +35,12 @@ workflows:
       - name: Set up signing certificate
         script: keychain add-certificates
       - name: Increment build number
-        script: agvtool new-version -all $(($BUILD_NUMBER +1))
+        script: |
+          #!/bin/sh
+          set -e
+          set -x
+          cd $FCI_BUILD_DIR
+          agvtool new-version -all $(($BUILD_NUMBER + 1))
       - name: Set up code signing settings on Xcode project
         script: xcode-project use-profiles
       - name: Build ipa for distribution
