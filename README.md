@@ -4,7 +4,7 @@ This is a basic social networking app built with MVVM pattern, which is implemen
 
 ### Screenshots
 
-<img src="https://social-app-daryl.herokuapp.com/static/images/home.png" style="height: 440px; width: 204px">|<img src="https://social-app-daryl.herokuapp.com/static/images/blur.png" style="height: 440px; width: 204px">|<img src="https://social-app-daryl.herokuapp.com/static/images/profile.png" style="height: 440px; width: 204px">|<img src="https://social-app-daryl.herokuapp.com/static/images/search.png" style="height: 440px; width: 204px">|
+<img src="https://raw.githubusercontent.com/11th-Doctor/social_app/master/public/images/home.png" style="height: 440px; width: 204px">|<img src="https://raw.githubusercontent.com/11th-Doctor/social_app/master/public/images/blur.png" style="height: 440px; width: 204px">|<img src="https://raw.githubusercontent.com/11th-Doctor/social_app/master/public/images/profile.png" style="height: 440px; width: 204px">|<img src="https://raw.githubusercontent.com/11th-Doctor/social_app/master/public/images/search.png" style="height: 440px; width: 204px">|
 |-|-|-|-|
 
 ### Download from App Store
@@ -100,7 +100,7 @@ This is a basic social networking app built with MVVM pattern, which is implemen
 * [CI/CD: Codemagic](https://codemagic.io/start/)
 * Unit testing
 
-<img src="https://social-app-daryl.herokuapp.com/static/images/cicd.png"> |
+<img src="https://raw.githubusercontent.com/11th-Doctor/social_app/master/public/images/cicd.png"> |
 |-|
 * Programmatic UI
 
