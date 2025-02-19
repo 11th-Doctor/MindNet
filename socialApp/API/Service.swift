@@ -11,7 +11,7 @@ class Service: NSObject {
     
     static let shared = Service()
     
-    let baseUrl = "https://social-app-daryl.herokuapp.com"
+    let baseUrl = "http://localhost:8080"
     
     func login(email: String, password: String, completion: @escaping(Result<Data,AFError>) -> ()) {
         let url = "\(baseUrl)/user/login"
@@ -99,7 +99,7 @@ class Service: NSObject {
             formData.append(Data((viewModel.bio ?? "").utf8), withName: "bio")
             
             if let imagefile = avatar?.jpegData(compressionQuality: 0.5) {
-                formData.append(imagefile, withName: "imagefile", fileName: "", mimeType: "image/jpg")
+                formData.append(imagefile, withName: "imagefile", fileName: "avatar", mimeType: "image/jpg")
             }
             
         }, to: url)
