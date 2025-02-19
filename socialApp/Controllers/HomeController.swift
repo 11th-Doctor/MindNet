@@ -11,7 +11,7 @@ import JGProgressHUD
 class HomeController: BaseCollectionController<PostCell, Post, PostViewModel> {
     
     let headerId = "headerId"
-    var allFollowing: [User] = []
+    var fetchingFollowingAction: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +34,8 @@ class HomeController: BaseCollectionController<PostCell, Post, PostViewModel> {
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as! FollowingHeader
-        header.viewModel.fetchFollowing()
         header.viewModel.parentViewController = self
+        fetchingFollowingAction = header.fetchingFollowingAction
         return header
     }
     
@@ -70,23 +70,24 @@ class HomeController: BaseCollectionController<PostCell, Post, PostViewModel> {
         let hud = JGProgressHUD(style: .dark)
         hud.show(in: view)
         
-        Service.shared.fetchPosts { result in
+        Service.shared.fetchPosts { [weak self] result in
             switch result {
             case .failure(let err):
                 print("Failed to fetch posts", err.localizedDescription)
                 break
             case .success(let postViewModels):
-                self.items = postViewModels
-                self.collectionView.reloadData()
+                self?.items = postViewModels
+                self?.collectionView.reloadData()
                 break
             }
-            self.collectionView.refreshControl?.endRefreshing()
+            self?.fetchingFollowingAction?()
+            self?.collectionView.refreshControl?.endRefreshing()
             hud.dismiss(animated: true)
         }
     }
     
     deinit {
-        print("No Retain cylce/Leak")
+        print("No Retain cycle/Leak for \(String(describing: self))")
     }
 }
 

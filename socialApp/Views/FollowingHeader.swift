@@ -41,10 +41,15 @@ class FollowingHeader: UICollectionReusableView {
     
     fileprivate var bag = DisposeBag()
     
+    var fetchingFollowingAction: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
         bindCollectionData()
+        fetchingFollowingAction = { [weak self] in
+            self?.viewModel.fetchFollowing()
+        }
     }
     
     func bindCollectionData() {
@@ -60,9 +65,6 @@ class FollowingHeader: UICollectionReusableView {
             .bind { user in
                 self.viewModel.didSelectItem(withId: user._id)
         }.disposed(by: bag)
-        
-        //fetch items
-        viewModel.fetchFollowing()
     }
     
     fileprivate func setupViews() {
