@@ -74,6 +74,14 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
         return button
     }()
     
+    lazy var numCommentsButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15)
+//        button.addTarget(self, action: #selector(handleNumComments), for: .touchUpInside)
+        return button
+    }()
+    
     let blurVisualEffectView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .systemThinMaterialDark)
         let view = UIVisualEffectView(effect: blurEffect)
@@ -119,7 +127,8 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
             
             item.bindLikeButton(likeButton: likeButton)
             item.bindNumLikesButton(numLikesButton: numLikesButton)
-            item.bindPostCell(postcell: self)
+            item.bindNumCommentButton(numCommentsButton: numCommentsButton)
+            item.bindPostCell(postCell: self)
         }
     }
     
@@ -179,6 +188,7 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
         addSubview(likeButton)
         addSubview(commentButton)
         addSubview(numLikesButton)
+        addSubview(numCommentsButton)
         
         profileImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: usernameLabel.leftAnchor, paddingTop: 12, paddingLeft: 16, paddingBottom: 0, paddingRight: 16, width: 0, height: 0)
         
@@ -200,7 +210,9 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
         
         commentButton.anchor(top: nil, left: likeButton.rightAnchor, bottom: numLikesButton.topAnchor, right: nil, paddingTop: 0, paddingLeft: 12, paddingBottom: 12, paddingRight: 0, width: 34, height: 34)
         
-        numLikesButton.anchor(top: nil, left: textBodyLabel.leftAnchor, bottom: bottomAnchor, right: commentButton.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 12, paddingRight: 0, width: 0, height: 34)
+        numLikesButton.anchor(top: nil, left: textBodyLabel.leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 12, paddingRight: 0, width: 0, height: 34)
+        
+        numCommentsButton.anchor(top: nil, left: numLikesButton.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 12, paddingBottom: 12, paddingRight: 0, width: 0, height: 34)
         
         addSeparatorView()
     }

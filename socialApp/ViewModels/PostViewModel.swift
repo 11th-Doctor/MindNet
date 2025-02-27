@@ -19,6 +19,7 @@ class PostViewModel: ViewModel<Post> {
     var hasLiked: Bool
     @Published var likeButtonImage: UIImage
     @Published var numLikes: Int
+    @Published var numComments: Int
     let canDelete: Bool
     @Published var isSensitive: Bool
     
@@ -35,6 +36,7 @@ class PostViewModel: ViewModel<Post> {
         isSensitive = model.isSensitive ?? true
         hasLiked = model.hasLiked ?? false
         numLikes = model.numLikes
+        numComments = model.numComments
         
         if hasLiked {
             likeButtonImage = #imageLiteral(resourceName: "like-filled")
@@ -60,14 +62,21 @@ class PostViewModel: ViewModel<Post> {
                             .sink(receiveValue: { numLikesButton.setTitle($0, for: .normal)}))
     }
     
-    func bindPostCell(postcell: PostCell) {
+    func bindNumCommentButton(numCommentsButton: UIButton) {
+        subscribers.append($numComments
+            .receive(on: RunLoop.main)
+            .map({ "\($0) 則留言"})
+            .sink(receiveValue: { numCommentsButton.setTitle($0, for: .normal)}))
+    }
+    
+    func bindPostCell(postCell: PostCell) {
         subscribers.append($isSensitive
                             .receive(on: RunLoop.main)
                             .sink(receiveValue: {
                                 if $0 {
-                                    postcell.setupVisualEffectBlur()
+                                    postCell.setupVisualEffectBlur()
                                 } else {
-                                    postcell.blurVisualEffectView.removeFromSuperview()
+                                    postCell.blurVisualEffectView.removeFromSuperview()
                                 }
                             }))
     }

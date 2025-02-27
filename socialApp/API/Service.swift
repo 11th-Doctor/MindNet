@@ -98,8 +98,8 @@ class Service: NSObject {
             formData.append(Data(viewModel.fullName.utf8), withName: "fullName")
             formData.append(Data((viewModel.bio ?? "").utf8), withName: "bio")
             
-            if let imagefile = avatar?.jpegData(compressionQuality: 0.5) {
-                formData.append(imagefile, withName: "imagefile", fileName: "avatar", mimeType: "image/jpg")
+            if let imageFile = avatar?.jpegData(compressionQuality: 0.5) {
+                formData.append(imageFile, withName: "imagefile", fileName: "avatar", mimeType: "image/jpg")
             }
             
         }, to: url)
