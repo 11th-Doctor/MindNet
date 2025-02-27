@@ -11,7 +11,7 @@ class Service: NSObject {
     
     static let shared = Service()
     
-    let baseUrl = "http://localhost:8080"
+    let baseUrl = "http://192.168.1.5:8080"
     
     func login(email: String, password: String, completion: @escaping(Result<Data,AFError>) -> ()) {
         let url = "\(baseUrl)/user/login"

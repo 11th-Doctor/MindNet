@@ -68,7 +68,7 @@ class CreatePostController: UIViewController {
         AF.upload(multipartFormData: { formData in
             formData.append(Data(text.utf8), withName: "postBody")
             guard let imageData = self.selectedImage.jpegData(compressionQuality: 0.5) else { return }
-            formData.append(imageData, withName: "imagefile", fileName: "fileName", mimeType: "image/jpg")
+            formData.append(imageData, withName: "imagefile", fileName: "fileName.jpg", mimeType: "image/jpg")
         }, to: url)
         .uploadProgress(queue: .main) { progress in
             DispatchQueue.main.async {

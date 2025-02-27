@@ -43,19 +43,18 @@ class PostDetailsController: BaseCollectionController<CommentCell, Comment, Comm
     }
     
     @objc fileprivate func fetchComments() {
-        Service.shared.fetchComments(postId: postId) { result in
-            self.collectionView.refreshControl?.beginRefreshing()
+        Service.shared.fetchComments(postId: postId) { [weak self] result in
+            self?.collectionView.refreshControl?.beginRefreshing()
             switch result {
             case .failure(let err):
                 print("Failed to fetch comments: ", err)
-                break
             case .success(let comments):
-                self.items = comments.map({ return CommentViewModel(model: $0) })
-                break
+                self?.items = comments.map({ return CommentViewModel(model: $0) })
+                self?.collectionView.reloadData()
+                let indexPath = IndexPath(item: comments.count - 1, section: 0)
+                self?.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
             }
-            self.collectionView.refreshControl?.endRefreshing()
-            let indexPath = IndexPath(item: self.items.count - 1, section: 0)
-            self.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            self?.collectionView.refreshControl?.endRefreshing()
         }
     }
     

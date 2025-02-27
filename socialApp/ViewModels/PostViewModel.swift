@@ -87,7 +87,7 @@ class PostViewModel: ViewModel<Post> {
                         print(err)
                         break
                     case .success(_):
-                        if let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController {
+                        if let mainTabBarController = UIApplication.shared.windows.first(where: \.isKeyWindow)?.rootViewController as? MainTabBarController {
                             mainTabBarController.refreshPosts()
                         }
                     }
