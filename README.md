@@ -4,12 +4,8 @@ This is a basic social networking app built with MVVM pattern, which is implemen
 
 ### Screenshots
 
-<img src="https://social-app-daryl.herokuapp.com/static/images/home.png" style="height: 440px; width: 204px">|<img src="https://social-app-daryl.herokuapp.com/static/images/blur.png" style="height: 440px; width: 204px">|<img src="https://social-app-daryl.herokuapp.com/static/images/profile.png" style="height: 440px; width: 204px">|<img src="https://social-app-daryl.herokuapp.com/static/images/search.png" style="height: 440px; width: 204px">|
+<img src="https://fir-site-e96f5.web.app/mindnet/home.png" style="height: 440px; width: 204px">|<img src="https://fir-site-e96f5.web.app/mindnet/blur.png" style="height: 440px; width: 204px">|<img src="https://fir-site-e96f5.web.app/mindnet/profile.png" style="height: 440px; width: 204px">|<img src="https://fir-site-e96f5.web.app/mindnet/search.png" style="height: 440px; width: 204px">|
 |-|-|-|-|
-
-### Download from App Store
-* <https://apps.apple.com/us/app/mindnet/id1584826570>
-* ![https://apps.apple.com/us/app/mindnet/id1584826570](https://social-app-daryl.herokuapp.com/static/images/appStore.png "https://apps.apple.com/us/app/mindnet/id1584826570")
 
 ### Features
 * Uploading images
@@ -109,7 +105,8 @@ This is a basic social networking app built with MVVM pattern, which is implemen
 * [RxCocoa](https://github.com/ReactiveX/RxSwift)
 
 ### Backend
-* [REST APIs built with NodeJS (ExpressJS)](https://github.com/11th-Doctor/social_app)
+* REST APIs built with NodeJS/TypeScript (ExpressJS)
+* Nginx
 * MongoDB Atlas
 * AWS S3
-* Heroku
+* Linux Ubuntu 22.04 VM
