@@ -1,6 +1,6 @@
 # MindNet
 
-This is a basic social networking app built with MVVM pattern, which is implemented by Combine framework and RxSwift.
+This is a basic social networking app built using MVVM, which is implemented by Combine framework and RxSwift.
 
 ### Screenshots
 
@@ -109,4 +109,5 @@ This is a basic social networking app built with MVVM pattern, which is implemen
 * Nginx
 * MongoDB Atlas
 * AWS S3
+* Jest for unit testing
 * Linux Ubuntu 22.04 VM
