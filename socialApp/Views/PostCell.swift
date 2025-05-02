@@ -78,7 +78,7 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
         let button = UIButton()
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 15)
-//        button.addTarget(self, action: #selector(handleNumComments), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleNumComments), for: .touchUpInside)
         return button
     }()
     
@@ -163,6 +163,10 @@ class PostCell: BaseCollectionCell<Post, PostViewModel> {
         if let parentController = parentController {
             item.fetchLikes(parentController: parentController)
         }
+    }
+    
+    @objc fileprivate func handleNumComments() {
+        handleComment()
     }
     
     @objc func handleComment() {
