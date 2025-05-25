@@ -22,7 +22,7 @@ class socialAppTests: XCTestCase {
         let user = User(_id: "_id", fullName: "full Name", bio: nil, emailAddress: "dummy@gmail.com", profileImageUrl: nil, posts: nil, isFollowing: false, isCurrentUser: true
                         , following: 0, followers: 0)
         
-        let post = Post(_id: "_id", text: "the text of the post", createdAt: "2021-08-19T14:26:02.297+00:00", updatedAt: "2021-08-19T14:26:02.297+00:00", imageUrl: "https://social-app-11th-dr.s3.us-west-1.amazonaws.com/f8b19c2f-3502-46fd-ad5a-d3b8e78f38ec", hasLiked: false, numLikes: 0, user: user, fromNow: "2天前", canDelete: true)
+        let post = Post(_id: "_id", text: "the text of the post", createdAt: "2021-08-19T14:26:02.297+00:00", updatedAt: "2021-08-19T14:26:02.297+00:00", imageUrl: "https://social-app-11th-dr.s3.us-west-1.amazonaws.com/f8b19c2f-3502-46fd-ad5a-d3b8e78f38ec", hasLiked: false, numLikes: 0, numComments: 0, user: user, fromNow: "2天前", canDelete: true)
         
         let postViewModel = PostViewModel(model: post)
         
@@ -36,7 +36,7 @@ class socialAppTests: XCTestCase {
         let user = User(_id: "_id", fullName: "full Name", bio: nil, emailAddress: "dummy@gmail.com", profileImageUrl: nil, posts: nil, isFollowing: false, isCurrentUser: false
                         , following: 0, followers: 0)
         
-        let post = Post(_id: "_id", text: "the text of the post", createdAt: "2021-08-19T14:26:02.297+00:00", updatedAt: "2021-08-19T14:26:02.297+00:00", imageUrl: "https://social-app-11th-dr.s3.us-west-1.amazonaws.com/f8b19c2f-3502-46fd-ad5a-d3b8e78f38ec", hasLiked: true, numLikes: 0, user: user, fromNow: "2天前", canDelete: false)
+        let post = Post(_id: "_id", text: "the text of the post", createdAt: "2021-08-19T14:26:02.297+00:00", updatedAt: "2021-08-19T14:26:02.297+00:00", imageUrl: "https://social-app-11th-dr.s3.us-west-1.amazonaws.com/f8b19c2f-3502-46fd-ad5a-d3b8e78f38ec", hasLiked: true, numLikes: 0, numComments: 0, user: user, fromNow: "2天前", canDelete: false)
         
         let postViewModel = PostViewModel(model: post)
         
