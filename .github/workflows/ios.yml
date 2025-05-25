@@ -21,9 +21,8 @@ jobs:
           echo $default | cat >default
           echo Using default scheme: $default
       - name: Install dependencies
-        uses: maxim-lobanov/setup-cocoapods@v1
-        with:
-        podfile-path: socialApp/Podfile.lock
+        run: |
+            pod install
       - name: Build
         env:
           scheme: ${{ 'default' }}
